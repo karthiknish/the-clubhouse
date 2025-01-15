@@ -1,101 +1,653 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { FeaturesSection } from "./components/ui/features";
+import { CardSection } from "./components/ui/card";
+// Animation variants
+const fadeIn = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const staggerChildren = {
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <main>
+      <div className="min-h-screen">
+        {/* Hero Section */}
+        <section className="bg-gradient-to-r from-black to-slate-800 text-white py-20 px-4">
+          <motion.div
+            className="max-w-6xl mx-auto text-center"
+            initial="hidden"
+            animate="visible"
+            variants={staggerChildren}
+          >
+            <motion.h1
+              className="text-4xl md:text-6xl font-bold mb-6"
+              variants={fadeIn}
+            >
+              Connect, Innovate, Thrive - Your Gateway to Exclusive World-Class
+              Opportunities
+            </motion.h1>
+            <motion.p
+              className="text-xl md:text-2xl mb-8 text-slate-300"
+              variants={fadeIn}
+            >
+              Welcome to Clubhouse, an exclusive members' club and rewards
+              program designed for innovative minds shaping our world.
+            </motion.p>
+            <motion.button
+              className="bg-white text-slate-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-slate-100 transition-colors"
+              variants={fadeIn}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                document
+                  .getElementById("join-form")
+                  .scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Join Today
+            </motion.button>
+          </motion.div>
+        </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        {/* Value Propositions */}
+        <section className="py-20 px-4 bg-gradient-to-b from-white to-slate-50">
+          <motion.div
+            className="max-w-6xl mx-auto"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerChildren}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <motion.div
+              className="grid md:grid-cols-3 gap-12"
+              variants={fadeIn}
+            >
+              <motion.div
+                className="relative p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+                whileHover={{ y: -8 }}
+              >
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl rotate-45 flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-white -rotate-45"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M13 10V3L4 14h7v7l9-11h-7z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <h3 className="text-2xl font-bold text-slate-800 mt-6 mb-4">
+                  Supercharge Your Growth
+                </h3>
+                <p className="text-slate-600 leading-relaxed">
+                  Access premium resources, strategic partnerships, and growth
+                  opportunities worth over £50,000 in value
+                </p>
+              </motion.div>
+
+              <motion.div
+                className="relative p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+                whileHover={{ y: -8 }}
+              >
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2">
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-pink-600 rounded-xl rotate-45 flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-white -rotate-45"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <h3 className="text-2xl font-bold text-slate-800 mt-6 mb-4">
+                  Expert Knowledge Hub
+                </h3>
+                <p className="text-slate-600 leading-relaxed">
+                  Get exclusive access to industry insights, masterclasses, and
+                  cutting-edge business strategies
+                </p>
+              </motion.div>
+
+              <motion.div
+                className="relative p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+                whileHover={{ y: -8 }}
+              >
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2">
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl rotate-45 flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-white -rotate-45"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <h3 className="text-2xl font-bold text-slate-800 mt-6 mb-4">
+                  Elite Network Access
+                </h3>
+                <p className="text-slate-600 leading-relaxed">
+                  Connect with industry leaders, mentors, and like-minded
+                  entrepreneurs in our curated community
+                </p>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </section>
+        <FeaturesSection />
+        <CardSection />
+        {/* Features Section */}
+        <section className="py-20 bg-white">
+          <motion.div
+            className="max-w-6xl mx-auto px-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerChildren}
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            <motion.h2
+              className="text-4xl text-black font-bold text-center mb-16"
+              variants={fadeIn}
+            >
+              Benefits
+            </motion.h2>
+            <div className="grid md:grid-cols-2 gap-12">
+              <motion.div className="space-y-8" variants={fadeIn}>
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl text-black font-semibold mb-2">
+                      Club Savings
+                    </h3>
+                    <p className="text-slate-600">
+                      Exclusive discounts and special offers for members across
+                      our partner network.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl text-black font-semibold mb-2">
+                      Airport Lounge Access
+                    </h3>
+                    <p className="text-slate-600">
+                      Complimentary access to premium airport lounges worldwide.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl text-black font-semibold mb-2">
+                      Golf Pass
+                    </h3>
+                    <p className="text-slate-600">
+                      Access to exclusive golf courses and special member rates.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl text-black font-semibold mb-2">
+                      Clubhouse Education
+                    </h3>
+                    <p className="text-slate-600">
+                      Access to educational resources and professional
+                      development programs.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+              <motion.div className="space-y-8" variants={fadeIn}>
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl text-black font-semibold mb-2">
+                      SEO & Content Marketing
+                    </h3>
+                    <p className="text-slate-600">
+                      Expert guidance and tools for digital marketing success.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl text-black font-semibold mb-2">
+                      Custom Reward Program
+                    </h3>
+                    <p className="text-slate-600">
+                      Personalized rewards and benefits tailored to your
+                      preferences.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl text-black font-semibold mb-2">
+                      Marketing & Lead Generation
+                    </h3>
+                    <p className="text-slate-600">
+                      Comprehensive marketing support and lead generation
+                      strategies.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl text-black font-semibold mb-2">
+                      Club Wellbeing
+                    </h3>
+                    <p className="text-slate-600">
+                      Access to wellness programs and health-focused
+                      initiatives.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Stats Section */}
+        <section className="py-16 bg-slate-900 text-white">
+          <motion.div
+            className="max-w-6xl mx-auto px-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerChildren}
+          >
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+              <motion.div variants={fadeIn}>
+                <div className="text-4xl font-bold mb-2">2500+</div>
+                <div className="text-slate-300">Active Members</div>
+              </motion.div>
+              <motion.div variants={fadeIn}>
+                <div className="text-4xl font-bold mb-2">150+</div>
+                <div className="text-slate-300">Events Yearly</div>
+              </motion.div>
+              <motion.div variants={fadeIn}>
+                <div className="text-4xl font-bold mb-2">50+</div>
+                <div className="text-slate-300">Partner Brands</div>
+              </motion.div>
+              <motion.div variants={fadeIn}>
+                <div className="text-4xl font-bold mb-2">12</div>
+                <div className="text-slate-300">Global Locations</div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-20 bg-white">
+          <motion.div
+            className="max-w-4xl mx-auto px-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerChildren}
+          >
+            <motion.h2
+              className="text-4xl text-black font-bold text-center mb-12"
+              variants={fadeIn}
+            >
+              Frequently Asked Questions
+            </motion.h2>
+            <motion.div className="space-y-6" variants={staggerChildren}>
+              {[
+                {
+                  q: "What is included in the membership?",
+                  a: "Our membership includes access to exclusive events, networking opportunities, business resources, partner discounts, and our global community of professionals.",
+                },
+                {
+                  q: "How much does membership cost?",
+                  a: "We offer various membership tiers tailored to different needs and budgets. Contact us for detailed pricing information.",
+                },
+                {
+                  q: "Can I try before committing?",
+                  a: "Yes! We offer guest passes to selected events. Contact us to learn more about experiencing Clubhouse firsthand.",
+                },
+                {
+                  q: "How do I maximize my membership?",
+                  a: "Our dedicated membership team will help you create a personalized plan to make the most of your benefits and connections.",
+                },
+              ].map((faq, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-slate-50 rounded-lg p-6 cursor-pointer"
+                  variants={fadeIn}
+                  initial={{ height: "auto" }}
+                  animate={{ height: "auto" }}
+                  onClick={(e) => {
+                    const content = e.currentTarget.querySelector("p");
+                    const arrow = e.currentTarget.querySelector("svg");
+                    const isOpen = content.style.maxHeight !== "0px";
+
+                    // Toggle content
+                    content.style.maxHeight = isOpen
+                      ? "0px"
+                      : `${content.scrollHeight}px`;
+
+                    // Animate arrow
+                    arrow.style.transform = isOpen
+                      ? "rotate(0deg)"
+                      : "rotate(180deg)";
+                  }}
+                >
+                  <h3 className="text-xl text-black font-semibold mb-2 flex justify-between items-center">
+                    {faq.q}
+                    <svg
+                      className="w-6 h-6 transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </h3>
+                  <p
+                    className="text-slate-600 overflow-hidden transition-all duration-300"
+                    style={{ maxHeight: "0px" }}
+                  >
+                    {faq.a}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* CTA Section - Add before the Contact Form */}
+        <section className="py-20 bg-gradient-to-r from-slate-800 to-slate-900 text-white">
+          <motion.div
+            className="max-w-4xl mx-auto text-center px-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerChildren}
+          >
+            <motion.h2 className="text-4xl font-bold mb-6" variants={fadeIn}>
+              Ready to Join Our Community?
+            </motion.h2>
+            <motion.p className="text-xl mb-8 text-slate-300" variants={fadeIn}>
+              Take the first step towards transforming your professional journey
+            </motion.p>
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+              variants={fadeIn}
+            >
+              <button className="bg-white text-slate-900 px-8 py-4 rounded-full font-semibold hover:bg-slate-100 transition-colors">
+                Apply Now
+              </button>
+              <button className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-colors">
+                Schedule a Call
+              </button>
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* Benefits Section */}
+
+        {/* Testimonials */}
+        <section className="py-16 px-4">
+          <motion.div
+            className="max-w-6xl mx-auto"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerChildren}
+          >
+            <motion.h2
+              className="text-3xl font-bold text-center mb-12"
+              variants={fadeIn}
+            >
+              What Our Members Say
+            </motion.h2>
+            <motion.div
+              className="grid md:grid-cols-3 gap-8"
+              variants={staggerChildren}
+            >
+              <motion.div
+                className="bg-white text-gray-700 p-8 rounded-lg shadow-sm"
+                variants={fadeIn}
+                whileHover={{ y: -10 }}
+              >
+                <p className="italic mb-4">
+                  "Clubhouse has opened doors I never even knew existed. The
+                  quality of connections I've made here is unmatched."
+                </p>
+                <p className="font-semibold">- S.M</p>
+              </motion.div>
+              <motion.div
+                className="bg-white text-gray-700  p-8 rounded-lg shadow-sm"
+                variants={fadeIn}
+                whileHover={{ y: -10 }}
+              >
+                <p className="italic mb-4">
+                  "The resources and support available through Clubhouse are
+                  invaluable. The curated events and mentorship opportunities
+                  have enhanced my skills."
+                </p>
+                <p className="font-semibold">- A.P</p>
+              </motion.div>
+              <motion.div
+                className="bg-white text-gray-700 p-8 rounded-lg shadow-sm"
+                variants={fadeIn}
+                whileHover={{ y: -10 }}
+              >
+                <p className="italic mb-4">
+                  "Clubhouse is so much more than professional networking. I've
+                  built lasting friendships and experienced things I never would
+                  have otherwise."
+                </p>
+                <p className="font-semibold">- M.R</p>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* Contact Form */}
+        <section id="join-form" className="bg-slate-900 text-white py-16 px-4">
+          <motion.div
+            className="max-w-xl mx-auto text-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerChildren}
+          >
+            <motion.h2 className="text-3xl font-bold mb-8" variants={fadeIn}>
+              Enquire about membership
+            </motion.h2>
+            <motion.form className="space-y-4" variants={fadeIn}>
+              <motion.input
+                type="text"
+                placeholder="Name"
+                className="w-full p-3 rounded text-slate-900"
+                variants={fadeIn}
+              />
+              <motion.input
+                type="email"
+                placeholder="Email"
+                className="w-full p-3 rounded text-slate-900"
+                variants={fadeIn}
+              />
+              <motion.input
+                type="tel"
+                placeholder="Phone"
+                className="w-full p-3 rounded text-slate-900"
+                variants={fadeIn}
+              />
+              <motion.textarea
+                placeholder="Message"
+                rows="4"
+                className="w-full p-3 rounded text-slate-900"
+                variants={fadeIn}
+              ></motion.textarea>
+              <motion.button
+                type="submit"
+                className="w-full bg-white text-slate-900 py-3 rounded font-semibold hover:bg-slate-100 transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Submit Enquiry
+              </motion.button>
+            </motion.form>
+          </motion.div>
+        </section>
+      </div>
+    </main>
   );
 }
