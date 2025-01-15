@@ -29,7 +29,7 @@ Connect with industry leaders, mentors, and like-minded entrepreneurs in our car
 
 ## Join Our Community
 
-Ready to transform your professional journey? Visit [clubhouse.com](http://localhost:3000) to apply for membership or schedule a call with our team to learn more about how Clubhouse can accelerate your growth.
+Ready to transform your professional journey? Visit [theclubhouse.co.uk](https://theclubhouse.co.uk) to apply for membership or schedule a call with our team to learn more about how Clubhouse can accelerate your growth.
 
 ## Technical Details
 
