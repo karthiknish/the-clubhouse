@@ -6,7 +6,9 @@ export default function Footer() {
           Contact us: support@theclubhouse.co.uk | Tel: 0207 100 4018
         </p>
 
-        <p className="mt-4 text-sm">© 2024 - All Rights Reserved | Clubhouse</p>
+        <p className="mt-4 text-sm">
+          © {new Date().getFullYear()} - All Rights Reserved | Clubhouse
+        </p>
       </div>
     </footer>
   );

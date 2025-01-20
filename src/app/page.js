@@ -334,7 +334,7 @@ export default function Home() {
                       Custom Reward Program
                     </h3>
                     <p className="text-slate-600">
-                      Personalized rewards and benefits tailored to your
+                      Personalised rewards and benefits tailored to your
                       preferences.
                     </p>
                   </div>
@@ -456,8 +456,8 @@ export default function Home() {
                   a: "Yes! We offer guest passes to selected events. Contact us to learn more about experiencing Clubhouse firsthand.",
                 },
                 {
-                  q: "How do I maximize my membership?",
-                  a: "Our dedicated membership team will help you create a personalized plan to make the most of your benefits and connections.",
+                  q: "How do I maximise my membership?",
+                  a: "Our dedicated membership team will help you create a personalised plan to make the most of your benefits and connections.",
                 },
               ].map((faq, index) => (
                 <motion.div
