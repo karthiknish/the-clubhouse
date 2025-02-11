@@ -11,7 +11,7 @@ const Header = () => {
         <nav className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center">
             <Image
-              src="https://irp.cdn-website.com/93173ee8/dms3rep/multi/Black+logo+-+no+background.svg"
+              src="/Logo.png"
               alt="Clubhouse Logo"
               width={180}
               height={40}
@@ -25,7 +25,7 @@ const Header = () => {
             animate={{ opacity: 1 }}
           >
             <motion.button
-              className="bg-slate-900 text-white px-6 py-2 rounded-full font-semibold hover:bg-slate-800 transition-colors"
+              className="bg-[#393F37] text-white px-6 py-2 rounded-full font-semibold hover:bg-[#4a5246] transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {

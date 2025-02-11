@@ -23,7 +23,7 @@ export default function Home() {
     <main>
       <div className="min-h-screen">
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-black to-slate-800 text-white py-20 px-4">
+        <section className="bg-gradient-to-r from-[#393F37] to-[#4a5246] text-white py-20 px-4">
           <motion.div
             className="max-w-6xl mx-auto text-center"
             initial="hidden"
@@ -38,14 +38,14 @@ export default function Home() {
               Opportunities
             </motion.h1>
             <motion.p
-              className="text-xl md:text-2xl mb-8 text-slate-300"
+              className="text-xl md:text-2xl mb-8 text-[#d1d5d0]"
               variants={fadeIn}
             >
               Welcome to Clubhouse, an exclusive members' club and rewards
               program designed for innovative minds shaping our world.
             </motion.p>
             <motion.button
-              className="bg-white text-slate-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-slate-100 transition-colors"
+              className="bg-white text-[#393F37] px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#f5f5f5] transition-colors"
               variants={fadeIn}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -61,7 +61,7 @@ export default function Home() {
         </section>
 
         {/* Value Propositions */}
-        <section className="py-20 px-4 bg-gradient-to-b from-white to-slate-50">
+        <section className="py-20 px-4 bg-gradient-to-b from-white to-[#f0f2ef]">
           <motion.div
             className="max-w-6xl mx-auto"
             initial="hidden"
@@ -78,7 +78,7 @@ export default function Home() {
                 whileHover={{ y: -8 }}
               >
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl rotate-45 flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-[#393F37] to-[#4a5246] rounded-xl rotate-45 flex items-center justify-center">
                     <svg
                       className="w-6 h-6 text-white -rotate-45"
                       fill="none"
@@ -94,10 +94,10 @@ export default function Home() {
                     </svg>
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-800 mt-6 mb-4">
+                <h3 className="text-2xl font-bold text-[#393F37] mt-6 mb-4">
                   Supercharge Your Growth
                 </h3>
-                <p className="text-slate-600 leading-relaxed">
+                <p className="text-[#5c635a] leading-relaxed">
                   Access premium resources, strategic partnerships, and growth
                   opportunities worth over £50,000 in value
                 </p>
@@ -108,7 +108,7 @@ export default function Home() {
                 whileHover={{ y: -8 }}
               >
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2">
-                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-pink-600 rounded-xl rotate-45 flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-[#393F37] to-[#4a5246] rounded-xl rotate-45 flex items-center justify-center">
                     <svg
                       className="w-6 h-6 text-white -rotate-45"
                       fill="none"
@@ -124,10 +124,10 @@ export default function Home() {
                     </svg>
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-800 mt-6 mb-4">
+                <h3 className="text-2xl font-bold text-[#393F37] mt-6 mb-4">
                   Expert Knowledge Hub
                 </h3>
-                <p className="text-slate-600 leading-relaxed">
+                <p className="text-[#5c635a] leading-relaxed">
                   Get exclusive access to industry insights, masterclasses, and
                   cutting-edge business strategies
                 </p>
@@ -138,7 +138,7 @@ export default function Home() {
                 whileHover={{ y: -8 }}
               >
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2">
-                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl rotate-45 flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-[#393F37] to-[#4a5246] rounded-xl rotate-45 flex items-center justify-center">
                     <svg
                       className="w-6 h-6 text-white -rotate-45"
                       fill="none"
@@ -154,10 +154,10 @@ export default function Home() {
                     </svg>
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-800 mt-6 mb-4">
+                <h3 className="text-2xl font-bold text-[#393F37] mt-6 mb-4">
                   Elite Network Access
                 </h3>
-                <p className="text-slate-600 leading-relaxed">
+                <p className="text-[#5c635a] leading-relaxed">
                   Connect with industry leaders, mentors, and like-minded
                   entrepreneurs in our curated community
                 </p>
@@ -177,7 +177,7 @@ export default function Home() {
             variants={staggerChildren}
           >
             <motion.h2
-              className="text-4xl text-black font-bold text-center mb-16"
+              className="text-4xl text-[#393F37] font-bold text-center mb-16"
               variants={fadeIn}
             >
               Benefits
@@ -185,7 +185,7 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-12">
               <motion.div className="space-y-8" variants={fadeIn}>
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#393F37] flex items-center justify-center">
                     <svg
                       className="w-6 h-6 text-white"
                       fill="none"
@@ -201,17 +201,17 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl text-black font-semibold mb-2">
+                    <h3 className="text-xl text-[#393F37] font-semibold mb-2">
                       Club Savings
                     </h3>
-                    <p className="text-slate-600">
+                    <p className="text-[#5c635a]">
                       Exclusive discounts and special offers for members across
                       our partner network.
                     </p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#393F37] flex items-center justify-center">
                     <svg
                       className="w-6 h-6 text-white"
                       fill="none"
@@ -227,16 +227,16 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl text-black font-semibold mb-2">
+                    <h3 className="text-xl text-[#393F37] font-semibold mb-2">
                       Airport Lounge Access
                     </h3>
-                    <p className="text-slate-600">
+                    <p className="text-[#5c635a]">
                       Complimentary access to premium airport lounges worldwide.
                     </p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#393F37] flex items-center justify-center">
                     <svg
                       className="w-6 h-6 text-white"
                       fill="none"
@@ -252,16 +252,16 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl text-black font-semibold mb-2">
+                    <h3 className="text-xl text-[#393F37] font-semibold mb-2">
                       Golf Pass
                     </h3>
-                    <p className="text-slate-600">
+                    <p className="text-[#5c635a]">
                       Access to exclusive golf courses and special member rates.
                     </p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#393F37] flex items-center justify-center">
                     <svg
                       className="w-6 h-6 text-white"
                       fill="none"
@@ -277,10 +277,10 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl text-black font-semibold mb-2">
+                    <h3 className="text-xl text-[#393F37] font-semibold mb-2">
                       Clubhouse Education
                     </h3>
-                    <p className="text-slate-600">
+                    <p className="text-[#5c635a]">
                       Access to educational resources and professional
                       development programs.
                     </p>
@@ -289,7 +289,7 @@ export default function Home() {
               </motion.div>
               <motion.div className="space-y-8" variants={fadeIn}>
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#393F37] flex items-center justify-center">
                     <svg
                       className="w-6 h-6 text-white"
                       fill="none"
@@ -305,16 +305,16 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl text-black font-semibold mb-2">
+                    <h3 className="text-xl text-[#393F37] font-semibold mb-2">
                       SEO & Content Marketing
                     </h3>
-                    <p className="text-slate-600">
+                    <p className="text-[#5c635a]">
                       Expert guidance and tools for digital marketing success.
                     </p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#393F37] flex items-center justify-center">
                     <svg
                       className="w-6 h-6 text-white"
                       fill="none"
@@ -330,17 +330,17 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl text-black font-semibold mb-2">
+                    <h3 className="text-xl text-[#393F37] font-semibold mb-2">
                       Custom Reward Program
                     </h3>
-                    <p className="text-slate-600">
+                    <p className="text-[#5c635a]">
                       Personalised rewards and benefits tailored to your
                       preferences.
                     </p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#393F37] flex items-center justify-center">
                     <svg
                       className="w-6 h-6 text-white"
                       fill="none"
@@ -356,17 +356,17 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl text-black font-semibold mb-2">
+                    <h3 className="text-xl text-[#393F37] font-semibold mb-2">
                       Marketing & Lead Generation
                     </h3>
-                    <p className="text-slate-600">
+                    <p className="text-[#5c635a]">
                       Comprehensive marketing support and lead generation
                       strategies.
                     </p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#393F37] flex items-center justify-center">
                     <svg
                       className="w-6 h-6 text-white"
                       fill="none"
@@ -382,10 +382,10 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl text-black font-semibold mb-2">
+                    <h3 className="text-xl text-[#393F37] font-semibold mb-2">
                       Club Wellbeing
                     </h3>
-                    <p className="text-slate-600">
+                    <p className="text-[#5c635a]">
                       Access to wellness programs and health-focused
                       initiatives.
                     </p>
@@ -397,7 +397,7 @@ export default function Home() {
         </section>
 
         {/* Stats Section */}
-        <section className="py-16 bg-slate-900 text-white">
+        <section className="py-16 bg-[#393F37] text-white">
           <motion.div
             className="max-w-6xl mx-auto px-4"
             initial="hidden"
@@ -408,19 +408,19 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <motion.div variants={fadeIn}>
                 <div className="text-4xl font-bold mb-2">2500+</div>
-                <div className="text-slate-300">Active Members</div>
+                <div className="text-[#d1d5d0]">Active Members</div>
               </motion.div>
               <motion.div variants={fadeIn}>
                 <div className="text-4xl font-bold mb-2">150+</div>
-                <div className="text-slate-300">Events Yearly</div>
+                <div className="text-[#d1d5d0]">Events Yearly</div>
               </motion.div>
               <motion.div variants={fadeIn}>
                 <div className="text-4xl font-bold mb-2">50+</div>
-                <div className="text-slate-300">Partner Brands</div>
+                <div className="text-[#d1d5d0]">Partner Brands</div>
               </motion.div>
               <motion.div variants={fadeIn}>
                 <div className="text-4xl font-bold mb-2">12</div>
-                <div className="text-slate-300">Global Locations</div>
+                <div className="text-[#d1d5d0]">Global Locations</div>
               </motion.div>
             </div>
           </motion.div>
@@ -436,7 +436,7 @@ export default function Home() {
             variants={staggerChildren}
           >
             <motion.h2
-              className="text-4xl text-black font-bold text-center mb-12"
+              className="text-4xl text-[#393F37] font-bold text-center mb-12"
               variants={fadeIn}
             >
               Frequently Asked Questions
@@ -462,7 +462,7 @@ export default function Home() {
               ].map((faq, index) => (
                 <motion.div
                   key={index}
-                  className="bg-slate-50 rounded-lg p-6 cursor-pointer"
+                  className="bg-[#f0f2ef] rounded-lg p-6 cursor-pointer"
                   variants={fadeIn}
                   initial={{ height: "auto" }}
                   animate={{ height: "auto" }}
@@ -482,7 +482,7 @@ export default function Home() {
                       : "rotate(180deg)";
                   }}
                 >
-                  <h3 className="text-xl text-black font-semibold mb-2 flex justify-between items-center">
+                  <h3 className="text-xl text-[#393F37] font-semibold mb-2 flex justify-between items-center">
                     {faq.q}
                     <svg
                       className="w-6 h-6 transition-transform duration-300"
@@ -499,7 +499,7 @@ export default function Home() {
                     </svg>
                   </h3>
                   <p
-                    className="text-slate-600 overflow-hidden transition-all duration-300"
+                    className="text-[#5c635a] overflow-hidden transition-all duration-300"
                     style={{ maxHeight: "0px" }}
                   >
                     {faq.a}
@@ -511,7 +511,7 @@ export default function Home() {
         </section>
 
         {/* CTA Section - Add before the Contact Form */}
-        <section className="py-20 bg-gradient-to-r from-slate-800 to-slate-900 text-white">
+        <section className="py-20 bg-gradient-to-r from-[#393F37] to-[#4a5246] text-white">
           <motion.div
             className="max-w-4xl mx-auto text-center px-4"
             initial="hidden"
@@ -522,14 +522,14 @@ export default function Home() {
             <motion.h2 className="text-4xl font-bold mb-6" variants={fadeIn}>
               Ready to Join Our Community?
             </motion.h2>
-            <motion.p className="text-xl mb-8 text-slate-300" variants={fadeIn}>
+            <motion.p className="text-xl mb-8 text-[#d1d5d0]" variants={fadeIn}>
               Take the first step towards transforming your professional journey
             </motion.p>
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center"
               variants={fadeIn}
             >
-              <button className="bg-white text-slate-900 px-8 py-4 rounded-full font-semibold hover:bg-slate-100 transition-colors">
+              <button className="bg-white text-[#393F37] px-8 py-4 rounded-full font-semibold hover:bg-[#f5f5f5] transition-colors">
                 Apply Now
               </button>
               <button className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-colors">
@@ -551,7 +551,7 @@ export default function Home() {
             variants={staggerChildren}
           >
             <motion.h2
-              className="text-3xl font-bold text-center mb-12"
+              className="text-3xl font-bold text-center mb-12 text-[#393F37]"
               variants={fadeIn}
             >
               What Our Members Say
@@ -561,7 +561,7 @@ export default function Home() {
               variants={staggerChildren}
             >
               <motion.div
-                className="bg-white text-gray-700 p-8 rounded-lg shadow-sm"
+                className="bg-white text-[#5c635a] p-8 rounded-lg shadow-sm"
                 variants={fadeIn}
                 whileHover={{ y: -10 }}
               >
@@ -572,7 +572,7 @@ export default function Home() {
                 <p className="font-semibold">- S.M</p>
               </motion.div>
               <motion.div
-                className="bg-white text-gray-700  p-8 rounded-lg shadow-sm"
+                className="bg-white text-[#5c635a] p-8 rounded-lg shadow-sm"
                 variants={fadeIn}
                 whileHover={{ y: -10 }}
               >
@@ -584,7 +584,7 @@ export default function Home() {
                 <p className="font-semibold">- A.P</p>
               </motion.div>
               <motion.div
-                className="bg-white text-gray-700 p-8 rounded-lg shadow-sm"
+                className="bg-white text-[#5c635a] p-8 rounded-lg shadow-sm"
                 variants={fadeIn}
                 whileHover={{ y: -10 }}
               >
@@ -600,7 +600,7 @@ export default function Home() {
         </section>
 
         {/* Contact Form */}
-        <section id="join-form" className="bg-slate-900 text-white py-16 px-4">
+        <section id="join-form" className="bg-[#393F37] text-white py-16 px-4">
           <motion.div
             className="max-w-xl mx-auto text-center"
             initial="hidden"
@@ -615,30 +615,30 @@ export default function Home() {
               <motion.input
                 type="text"
                 placeholder="Name"
-                className="w-full p-3 rounded text-slate-900"
+                className="w-full p-3 rounded text-[#393F37]"
                 variants={fadeIn}
               />
               <motion.input
                 type="email"
                 placeholder="Email"
-                className="w-full p-3 rounded text-slate-900"
+                className="w-full p-3 rounded text-[#393F37]"
                 variants={fadeIn}
               />
               <motion.input
                 type="tel"
                 placeholder="Phone"
-                className="w-full p-3 rounded text-slate-900"
+                className="w-full p-3 rounded text-[#393F37]"
                 variants={fadeIn}
               />
               <motion.textarea
                 placeholder="Message"
                 rows="4"
-                className="w-full p-3 rounded text-slate-900"
+                className="w-full p-3 rounded text-[#393F37]"
                 variants={fadeIn}
               ></motion.textarea>
               <motion.button
                 type="submit"
-                className="w-full bg-white text-slate-900 py-3 rounded font-semibold hover:bg-slate-100 transition-colors"
+                className="w-full bg-white text-[#393F37] py-3 rounded font-semibold hover:bg-[#f5f5f5] transition-colors"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

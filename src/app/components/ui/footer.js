@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-slate-800 text-white py-8 px-4">
+    <footer className="bg-[#393F37] text-white py-8 px-4">
       <div className="max-w-6xl mx-auto text-center">
         <p className="mb-4">
           Contact us: support@theclubhouse.co.uk | Tel: 0207 100 4018

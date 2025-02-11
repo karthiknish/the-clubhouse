@@ -98,7 +98,7 @@ export const CardSection = () => {
             transition={springTransition}
           >
             <motion.div
-              className="relative h-48 w-80 overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 p-6 shadow-2xl"
+              className="relative h-48 w-80 overflow-hidden rounded-2xl bg-gradient-to-br from-[#393F37] to-[#4a5246] p-6 shadow-2xl"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: CARD_ANIMATION_DURATION }}
