@@ -25,9 +25,9 @@ export function FeaturesSection() {
         "col-span-1 md:col-span-2 lg:col-span-2 border-b dark:border-neutral-800",
     },
     {
-      title: "Watch us in action",
+      title: "Professional Development",
       description:
-        "See how Clubhouse can help transform your networking experience",
+        "Access exclusive workshops, mentorship programs and skill-building resources to accelerate your growth",
       skeleton: <SkeletonThree />,
       className:
         "col-span-1 md:col-span-3 lg:col-span-3 border-b md:border-r dark:border-neutral-800",
@@ -122,24 +122,13 @@ export const SkeletonOne = () => {
 
 export const SkeletonThree = () => {
   return (
-    <Link
-      href="https://www.youtube.com/watch?v=vJAKowY9dxc"
-      target="__blank"
-      className="relative flex gap-10 h-full group/image"
-    >
-      <div className="w-full mx-auto bg-transparent dark:bg-transparent group h-full">
-        <div className="flex flex-1 w-full h-full flex-col space-y-2 relative">
-          <IconBrandYoutubeFilled className="h-20 w-20 absolute z-10 inset-0 text-red-500 m-auto" />
-          <Image
-            src="/private-member.jpg"
-            alt="Demo video preview"
-            width={800}
-            height={800}
-            className="h-full w-full aspect-square object-cover object-center rounded-sm blur-none group-hover/image:blur-md transition-all duration-200"
-          />
-        </div>
-      </div>
-    </Link>
+    <Image
+      src="/25693.jpg"
+      alt="Demo video preview"
+      width={800}
+      height={800}
+      className="h-full w-full aspect-square object-cover object-center rounded-sm"
+    />
   );
 };
 

@@ -4,6 +4,9 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { FeaturesSection } from "./components/ui/features";
 import { CardSection } from "./components/ui/card";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 // Animation variants
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -19,6 +22,46 @@ const staggerChildren = {
 };
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+
+    const formData = new FormData(e.target);
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      message: formData.get("message"),
+      phone: formData.get("phone")?.replace(/\D/g, ""), // Remove non-digits
+    };
+
+    try {
+      const response = await fetch("/api/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Submission failed");
+      }
+
+      router.push("/thank-you");
+    } catch (err) {
+      setError(err.message || "Failed to submit form. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <main>
       <div className="min-h-screen">
@@ -529,11 +572,15 @@ export default function Home() {
               className="flex flex-col sm:flex-row gap-4 justify-center"
               variants={fadeIn}
             >
-              <button className="bg-white text-[#393F37] px-8 py-4 rounded-full font-semibold hover:bg-[#f5f5f5] transition-colors">
+              <button
+                onClick={() => {
+                  document
+                    .getElementById("join-form")
+                    .scrollIntoView({ behavior: "smooth" });
+                }}
+                className="bg-white text-[#393F37] px-8 py-4 rounded-full font-semibold hover:bg-[#f5f5f5] transition-colors"
+              >
                 Apply Now
-              </button>
-              <button className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-colors">
-                Schedule a Call
               </button>
             </motion.div>
           </motion.div>
@@ -611,40 +658,83 @@ export default function Home() {
             <motion.h2 className="text-3xl font-bold mb-8" variants={fadeIn}>
               Enquire about membership
             </motion.h2>
-            <motion.form className="space-y-4" variants={fadeIn}>
-              <motion.input
-                type="text"
-                placeholder="Name"
-                className="w-full p-3 rounded text-[#393F37]"
-                variants={fadeIn}
-              />
-              <motion.input
-                type="email"
-                placeholder="Email"
-                className="w-full p-3 rounded text-[#393F37]"
-                variants={fadeIn}
-              />
-              <motion.input
-                type="tel"
-                placeholder="Phone"
-                className="w-full p-3 rounded text-[#393F37]"
-                variants={fadeIn}
-              />
-              <motion.textarea
-                placeholder="Message"
-                rows="4"
-                className="w-full p-3 rounded text-[#393F37]"
-                variants={fadeIn}
-              ></motion.textarea>
-              <motion.button
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {error && <div className="text-red-500 text-sm">{error}</div>}
+
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-white"
+                >
+                  Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  required
+                  className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-white"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  required
+                  className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-white"
+                >
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  id="phone"
+                  required
+                  pattern="[0-9]*"
+                  className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-white"
+                >
+                  Message
+                </label>
+                <textarea
+                  name="message"
+                  id="message"
+                  rows={4}
+                  className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4"
+                />
+              </div>
+
+              <button
                 type="submit"
-                className="w-full bg-white text-[#393F37] py-3 rounded font-semibold hover:bg-[#f5f5f5] transition-colors"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                disabled={isLoading}
+                className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium  bg-white text-[#393F37]  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 ${
+                  isLoading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               >
-                Submit Enquiry
-              </motion.button>
-            </motion.form>
+                {isLoading ? "Submitting..." : "Join Now"}
+              </button>
+            </form>
           </motion.div>
         </section>
       </div>
