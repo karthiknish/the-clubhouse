@@ -114,7 +114,7 @@ export const CardSection = () => {
                   }}
                 >
                   <Image
-                    src="https://irp.cdn-website.com/93173ee8/dms3rep/multi/Black+logo+-+no+background.svg"
+                    src="/Logo.png"
                     alt="Clubhouse Logo"
                     width={100}
                     height={100}
