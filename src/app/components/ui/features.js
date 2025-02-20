@@ -120,7 +120,7 @@ export const SkeletonOne = () => {
 export const SkeletonThree = () => {
   return (
     <Image
-      src="/25693.jpg"
+      src="https://irp.cdn-website.com/93173ee8/dms3rep/multi/CLUBHOUSE+%2812%29.jpg"
       alt="Demo video preview"
       width={800}
       height={800}
