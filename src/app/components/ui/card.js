@@ -114,11 +114,11 @@ export const CardSection = () => {
                   }}
                 >
                   <Image
-                    src="/Logo.png"
+                    src="/Logo-White.png"
                     alt="Clubhouse Logo"
                     width={100}
                     height={100}
-                    className="mr-2 bg-white"
+                    className="mr-2"
                   />
                 </motion.div>
 
