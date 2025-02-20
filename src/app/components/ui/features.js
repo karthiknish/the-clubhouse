@@ -101,15 +101,15 @@ const FeatureDescription = ({ children }) => {
 
 export const SkeletonOne = () => {
   return (
-    <div className="relative flex py-8 px-2 gap-10 h-full">
-      <div className="w-full p-5 mx-auto bg-white group h-full">
-        <div className="flex flex-1 w-full h-full flex-col space-y-2">
+    <div className="relative flex py-4 px-1 gap-5 h-full">
+      <div className="w-3/4 p-3 mx-auto bg-white group h-full">
+        <div className="flex flex-1 w-full h-full flex-col space-y-1">
           <Image
             src="/app-screen.png"
             alt="Club dashboard preview"
-            width={800}
-            height={800}
-            className="h-full w-full aspect-square top-12 object-cover object-left-top"
+            width={600}
+            height={600}
+            className="h-full w-full aspect-square top-8 object-contain object-left-top"
           />
         </div>
       </div>
@@ -136,6 +136,13 @@ export const SkeletonTwo = () => {
     "https://lirp.cdn-website.com/93173ee8/dms3rep/multi/opt/144319-1920w.jpg",
     "https://lirp.cdn-website.com/93173ee8/dms3rep/multi/opt/2148817070-1920w.jpg",
     "https://lirp.cdn-website.com/93173ee8/dms3rep/multi/opt/CLUBHOUSE+%289%29-1920w.jpg",
+    "https://irp.cdn-website.com/93173ee8/dms3rep/multi/CLUBHOUSE+%2810%29.jpg",
+    "https://irp.cdn-website.com/93173ee8/dms3rep/multi/CLUBHOUSE+%288%29.jpg",
+    "https://irp.cdn-website.com/93173ee8/dms3rep/multi/14232.jpg",
+    "https://irp.cdn-website.com/md/pexels/dms3rep/multi/lamborghini-brno-racing-car-automobiles-39501.jpeg",
+    "https://irp.cdn-website.com/md/pexels/dms3rep/multi/pexels-photo-2506988.jpeg",
+    "https://irp.cdn-website.com/93173ee8/dms3rep/multi/520.jpg",
+    "https://irp.cdn-website.com/93173ee8/dms3rep/multi/modern-living-room-with-elegant-decor-comfortable-sofa-generative-ai.jpg",
   ];
 
   const imageVariants = {
@@ -178,6 +185,28 @@ export const SkeletonTwo = () => {
         {images.slice(3).map((image, idx) => (
           <motion.div
             key={"images-second" + idx}
+            style={{
+              rotate: Math.random() * 20 - 10,
+            }}
+            variants={imageVariants}
+            whileHover="whileHover"
+            whileTap="whileTap"
+            className="rounded-xl -mr-4 mt-4 p-1 bg-white dark:bg-neutral-800 dark:border-neutral-700 border border-neutral-100 flex-shrink-0 overflow-hidden"
+          >
+            <Image
+              src={image}
+              alt="club event"
+              width="500"
+              height="500"
+              className="rounded-lg h-20 w-20 md:h-40 md:w-40 object-cover flex-shrink-0"
+            />
+          </motion.div>
+        ))}
+      </div>
+      <div className="flex flex-row -ml-20">
+        {images.slice(6).map((image, idx) => (
+          <motion.div
+            key={"images-third" + idx}
             style={{
               rotate: Math.random() * 20 - 10,
             }}
