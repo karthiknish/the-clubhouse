@@ -10,8 +10,8 @@ const zillaSlabFont = Zilla_Slab({
 });
 
 export const metadata = {
-  title: "Clubhouse",
-  description: "Clubhouse",
+  title: "Join Clubhouse",
+  description: "Join Clubhouse",
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
