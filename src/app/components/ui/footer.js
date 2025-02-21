@@ -7,7 +7,10 @@ export default function Footer() {
         </p>
 
         <p className="mt-4 text-sm">
-          © {new Date().getFullYear()} - All Rights Reserved | Clubhouse
+          © {new Date().getFullYear()} - All Rights Reserved |{" "}
+          <a href="https://theclubhouse.co.uk" className="underline">
+            Clubhouse
+          </a>
         </p>
       </div>
     </footer>
