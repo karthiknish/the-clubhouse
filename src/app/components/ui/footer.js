@@ -3,7 +3,14 @@ export default function Footer() {
     <footer className="bg-[#393F37] text-white py-8 px-4">
       <div className="max-w-6xl mx-auto text-center">
         <p className="mb-4">
-          Contact us: support@theclubhouse.co.uk | Tel: 0207 100 4018
+          Contact us:{" "}
+          <a href="mailto:support@theclubhouse.co.uk" className="underline">
+            support@theclubhouse.co.uk
+          </a>{" "}
+          | Tel:{" "}
+          <a href="tel:02071004018" className="underline">
+            0207 100 4018
+          </a>
         </p>
 
         <p className="mt-4 text-sm">
