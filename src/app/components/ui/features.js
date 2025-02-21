@@ -49,8 +49,8 @@ export function FeaturesSection() {
         </h4>
 
         <p className="text-sm lg:text-base max-w-2xl my-4 mx-auto text-neutral-500 text-center font-normal dark:text-neutral-300">
-          From member management to event planning, Clubhouse provides all the
-          tools you need to make your business thrive.
+          Clubhouse provides all the tools you need to make your business
+          thrive.
         </p>
       </div>
 

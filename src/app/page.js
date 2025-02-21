@@ -84,8 +84,9 @@ export default function Home() {
               className="text-xl md:text-2xl mb-8 text-[#d1d5d0]"
               variants={fadeIn}
             >
-              Welcome to Clubhouse, an exclusive members' club and rewards
-              program designed for innovative minds shaping our world.
+              Welcome to Clubhouse, and executive business club catering for the
+              UK SME marketplace. Our in-house rewards program is designed for
+              innovative minds shaping the world.
             </motion.p>
             <motion.button
               className="bg-white text-[#393F37] px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#f5f5f5] transition-colors"
@@ -138,11 +139,11 @@ export default function Home() {
                   </div>
                 </div>
                 <h3 className="text-2xl font-bold text-[#393F37] mt-6 mb-4">
-                  Supercharge Your Growth
+                  Enhance Growth Within Your Business
                 </h3>
                 <p className="text-[#5c635a] leading-relaxed">
-                  Access premium resources, strategic partnerships, and growth
-                  opportunities worth over £50,000 in value
+                  Access premium resources, strategic partnerships, and tailored
+                  growth opportunities.
                 </p>
               </motion.div>
 
