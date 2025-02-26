@@ -23,7 +23,7 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
       companyNumber: formData.get("companyNumber"),
       companyAddress: formData.get("companyAddress"),
       companyWebsite: formData.get("companyWebsite"),
-      proofofID: formData.get("proofofID"),
+      proofofId: formData.get("proofofID"),
       proofofAddress: formData.get("proofofAddress"),
     };
 
@@ -205,6 +205,7 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
           <div>
             <label
               htmlFor="proofofID"
+              accept="image/jpeg,image/png,application/pdf"
               className="block text-sm font-medium text-white"
             >
               Proof of ID
@@ -219,7 +220,12 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
             >
               Proof of Address
             </label>
-            <input type="file" name="proofofAddress" id="proofofAddress" />
+            <input
+              type="file"
+              accept="image/jpeg,image/png,application/pdf"
+              name="proofofAddress"
+              id="proofofAddress"
+            />
           </div>
 
           <button

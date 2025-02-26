@@ -14,7 +14,38 @@ console.log("Creating Contentful client");
 const client = createClient({
   accessToken: process.env.CONTENTFUL_MANAGEMENT_TOKEN,
 });
+async function uploadToContentful(environment, file, title, description) {
+  try {
+    // Create the asset
+    const asset = await environment.createAsset({
+      fields: {
+        title: {
+          "en-US": title,
+        },
+        description: {
+          "en-US": description,
+        },
+        file: {
+          "en-US": {
+            contentType: file.type,
+            fileName: file.name,
+            // For Next.js API routes with FormData
+            upload: Buffer.from(await file.arrayBuffer()).toString("base64"),
+          },
+        },
+      },
+    });
 
+    // Process and publish the asset
+    const processedAsset = await asset.processForAllLocales();
+    const publishedAsset = await processedAsset.publish();
+
+    return publishedAsset.sys.id;
+  } catch (error) {
+    console.error("Asset upload error:", error);
+    throw error;
+  }
+}
 async function sendEmail(data) {
   try {
     // Send confirmation to user
@@ -39,7 +70,7 @@ async function sendEmail(data) {
         subject: "Welcome to Clubhouse - We've Received Your Application",
         htmlContent: `
           <h1>Thank you for your interest in Clubhouse!</h1>
-          <p>Dear ${data.name},</p>
+          <p>Dear ${data.firstName},</p>
           <p>We've received your application and our team will review it shortly. Here's what you shared with us:</p>
       
           <p>What happens next?</p>
@@ -117,7 +148,7 @@ async function sendEmail(data) {
             </tr>
             <tr>
               <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Proof of ID</strong></td>
-              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.proofofID}</td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.proofofId}</td>
             </tr>
             <tr>
               <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Proof of Address</strong></td>
@@ -160,10 +191,15 @@ export async function POST(request) {
     console.log("Received form data:", data);
 
     // Validate required fields
-    if (!data.name?.trim()) {
-      return Response.json({ error: "Name is required" }, { status: 400 });
+    if (!data.firstName?.trim()) {
+      return Response.json(
+        { error: "First Name is required" },
+        { status: 400 }
+      );
     }
-
+    if (!data.lastName?.trim()) {
+      return Response.json({ error: "Last Name is required" }, { status: 400 });
+    }
     if (!data.email?.trim()) {
       return Response.json({ error: "Email is required" }, { status: 400 });
     }
@@ -185,11 +221,39 @@ export async function POST(request) {
         { status: 400 }
       );
     }
-
+    const proofOfIdFile = data.proofofId;
+    const proofOfAddressFile = data.proofofAddress;
     // Get the space and environment
     const space = await client.getSpace(process.env.CONTENTFUL_SPACE_ID);
     console.log("Space:", space);
     const environment = await space.getEnvironment("master");
+    let proofOfIdAssetId = null;
+    let proofOfAddressAssetId = null;
+
+    if (proofOfIdFile && proofOfIdFile instanceof File) {
+      console.log("Uploading proof of ID document");
+      proofOfIdAssetId = await uploadToContentful(
+        environment,
+        proofOfIdFile,
+        `ID Document - ${data.firstName} ${data.lastName}`,
+        "Proof of identification document"
+      );
+      console.log("Proof of ID uploaded, asset ID:", proofOfIdAssetId);
+    }
+    if (proofOfAddressFile && proofOfAddressFile instanceof File) {
+      console.log("Uploading proof of address document");
+      proofOfAddressAssetId = await uploadToContentful(
+        environment,
+        proofOfAddressFile,
+        `Address Document - ${data.firstName} ${data.lastName}`,
+        "Proof of address document"
+      );
+      console.log(
+        "Proof of address uploaded, asset ID:",
+        proofOfAddressAssetId
+      );
+    }
+
     // Create the entry
     const entry = await environment.createEntry("contactForm", {
       fields: {
@@ -209,7 +273,7 @@ export async function POST(request) {
           "en-US": data.companyName.trim(),
         },
         companyNumber: {
-          "en-US": data.companyNumber.trim(),
+          "en-US": parseInt(data.companyNumber.trim(), 10),
         },
         companyAddress: {
           "en-US": data.companyAddress.trim(),
@@ -217,11 +281,27 @@ export async function POST(request) {
         companyWebsite: {
           "en-US": data.companyWebsite.trim(),
         },
-        proofofID: {
-          "en-US": data.proofofID,
+        proofofId: {
+          "en-US": data.proofofId
+            ? {
+                sys: {
+                  type: "Link",
+                  linkType: "Asset",
+                  id: proofOfIdAssetId,
+                },
+              }
+            : null,
         },
         proofofAddress: {
-          "en-US": data.proofofAddress,
+          "en-US": data.proofofAddress
+            ? {
+                sys: {
+                  type: "Link",
+                  linkType: "Asset",
+                  id: proofOfAddressAssetId,
+                },
+              }
+            : null,
         },
       },
     });
