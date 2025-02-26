@@ -59,7 +59,7 @@ async function sendEmail(data) {
       body: JSON.stringify({
         sender: {
           name: "Clubhouse",
-          email: "noreply@theclubhouse.com",
+          email: "noreply@theclubhouse.co.uk",
         },
         to: [
           {
@@ -96,14 +96,19 @@ async function sendEmail(data) {
       body: JSON.stringify({
         sender: {
           name: "Clubhouse",
-          email: "noreply@theclubhouse.com",
+          email: "noreply@theclubhouse.co.uk",
         },
         to: [
           {
-            email: "karthik@profici.co.uk",
-            name: "Karthik",
+            email: "support@theclubhouse.co.uk",
+            name: "Support",
+          },
+          {
+            email: "mark@theclubhouse.co.uk",
+            name: "Mark",
           },
         ],
+
         subject: "New Clubhouse Application Received",
         htmlContent: `
           <h2>New Application Details</h2>
@@ -146,14 +151,7 @@ async function sendEmail(data) {
               <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Company Website</strong></td>
               <td style="border: 1px solid #dee2e6; padding: 12px;">${data.companyWebsite}</td>
             </tr>
-            <tr>
-              <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Proof of ID</strong></td>
-              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.proofofId}</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Proof of Address</strong></td>
-              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.proofofAddress}</td>
-            </tr>
+            
           </table>
           <p>This application has been automatically saved to Contentful.</p>
           <p>Please review and take appropriate action.</p>
