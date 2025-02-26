@@ -33,7 +33,7 @@ async function sendEmail(data) {
         to: [
           {
             email: data.email,
-            name: data.name,
+            name: data.firstName,
           },
         ],
         subject: "Welcome to Clubhouse - We've Received Your Application",
@@ -41,12 +41,7 @@ async function sendEmail(data) {
           <h1>Thank you for your interest in Clubhouse!</h1>
           <p>Dear ${data.name},</p>
           <p>We've received your application and our team will review it shortly. Here's what you shared with us:</p>
-          <ul>
-            <li>Name: ${data.name}</li>
-            <li>Email: ${data.email}</li>
-            <li>Phone: ${data.phone}</li>
-            ${data.message ? `<li>Message: ${data.message}</li>` : ""}
-          </ul>
+      
           <p>What happens next?</p>
           <ul>
             <li>Our team will review your application within 24 hours</li>
@@ -89,33 +84,45 @@ async function sendEmail(data) {
               <th style="border: 1px solid #dee2e6; padding: 12px; text-align: left;">Value</th>
             </tr>
             <tr>
-              <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Name</strong></td>
-              <td style="border: 1px solid #dee2e6; padding: 12px;">${
-                data.name
-              }</td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>First Name</strong></td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.firstName}</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Last Name</strong></td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.lastName}</td>
             </tr>
             <tr>
               <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Email</strong></td>
-              <td style="border: 1px solid #dee2e6; padding: 12px;">${
-                data.email
-              }</td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.email}</td>
             </tr>
             <tr>
               <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Phone</strong></td>
-              <td style="border: 1px solid #dee2e6; padding: 12px;">${
-                data.phone
-              }</td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.phone}</td>
             </tr>
-            ${
-              data.message
-                ? `
             <tr>
-              <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Message</strong></td>
-              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.message}</td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Company Name</strong></td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.companyName}</td>
             </tr>
-            `
-                : ""
-            }
+            <tr>
+              <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Company Number</strong></td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.companyNumber}</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Company Address</strong></td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.companyAddress}</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Company Website</strong></td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.companyWebsite}</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Proof of ID</strong></td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.proofofID}</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Proof of Address</strong></td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.proofofAddress}</td>
+            </tr>
           </table>
           <p>This application has been automatically saved to Contentful.</p>
           <p>Please review and take appropriate action.</p>
@@ -186,8 +193,11 @@ export async function POST(request) {
     // Create the entry
     const entry = await environment.createEntry("contactForm", {
       fields: {
-        name: {
-          "en-US": data.name.trim(),
+        firstName: {
+          "en-US": data.firstName.trim(),
+        },
+        lastName: {
+          "en-US": data.lastName.trim(),
         },
         email: {
           "en-US": data.email.trim().toLowerCase(),
@@ -195,27 +205,23 @@ export async function POST(request) {
         phone: {
           "en-US": cleanPhone,
         },
-        message: {
-          "en-US": data.message
-            ? {
-                nodeType: "document",
-                data: {},
-                content: [
-                  {
-                    nodeType: "paragraph",
-                    data: {},
-                    content: [
-                      {
-                        nodeType: "text",
-                        value: data.message.trim(),
-                        marks: [],
-                        data: {},
-                      },
-                    ],
-                  },
-                ],
-              }
-            : undefined,
+        companyName: {
+          "en-US": data.companyName.trim(),
+        },
+        companyNumber: {
+          "en-US": data.companyNumber.trim(),
+        },
+        companyAddress: {
+          "en-US": data.companyAddress.trim(),
+        },
+        companyWebsite: {
+          "en-US": data.companyWebsite.trim(),
+        },
+        proofofID: {
+          "en-US": data.proofofID,
+        },
+        proofofAddress: {
+          "en-US": data.proofofAddress,
         },
       },
     });
