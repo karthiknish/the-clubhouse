@@ -177,32 +177,47 @@ export async function POST(request) {
   try {
     console.log("Starting POST request handler");
 
-    // Validate request
-    if (!request.headers.get("Content-Type")?.includes("application/json")) {
+    // Check if the request is multipart/form-data
+    const contentType = request.headers.get("Content-Type") || "";
+
+    if (!contentType.includes("multipart/form-data")) {
       return Response.json(
-        { error: "Content-Type must be application/json" },
+        { error: "Content-Type must be multipart/form-data" },
         { status: 400 }
       );
     }
 
-    const data = await request.json();
-    console.log("Received form data:", data);
+    // Parse the FormData
+    const formData = await request.formData();
+    console.log("Received form data");
+
+    // Extract form fields
+    const firstName = formData.get("firstName");
+    const lastName = formData.get("lastName");
+    const email = formData.get("email");
+    const phone = formData.get("phone");
+    const companyName = formData.get("companyName");
+    const companyNumber = formData.get("companyNumber");
+    const companyAddress = formData.get("companyAddress");
+    const companyWebsite = formData.get("companyWebsite");
+    const proofOfIdFile = formData.get("proofofID");
+    const proofOfAddressFile = formData.get("proofofAddress");
 
     // Validate required fields
-    if (!data.firstName?.trim()) {
+    if (!firstName?.trim()) {
       return Response.json(
         { error: "First Name is required" },
         { status: 400 }
       );
     }
-    if (!data.lastName?.trim()) {
+    if (!lastName?.trim()) {
       return Response.json({ error: "Last Name is required" }, { status: 400 });
     }
-    if (!data.email?.trim()) {
+    if (!email?.trim()) {
       return Response.json({ error: "Email is required" }, { status: 400 });
     }
 
-    if (!data.phone) {
+    if (!phone) {
       return Response.json(
         { error: "Phone number is required" },
         { status: 400 }
@@ -210,7 +225,7 @@ export async function POST(request) {
     }
 
     // Clean phone number - remove any non-digits and convert to integer
-    const cleanPhone = parseInt(data.phone.replace(/\D/g, ""), 10);
+    const cleanPhone = parseInt(phone.toString().replace(/\D/g, ""), 10);
 
     // Validate phone number is a valid integer
     if (isNaN(cleanPhone)) {
@@ -219,8 +234,7 @@ export async function POST(request) {
         { status: 400 }
       );
     }
-    const proofOfIdFile = data.proofofId;
-    const proofOfAddressFile = data.proofofAddress;
+
     // Get the space and environment
     const space = await client.getSpace(process.env.CONTENTFUL_SPACE_ID);
     console.log("Space:", space);
@@ -233,7 +247,7 @@ export async function POST(request) {
       proofOfIdAssetId = await uploadToContentful(
         environment,
         proofOfIdFile,
-        `ID Document - ${data.firstName} ${data.lastName}`,
+        `ID Document - ${firstName} ${lastName}`,
         "Proof of identification document"
       );
       console.log("Proof of ID uploaded, asset ID:", proofOfIdAssetId);
@@ -243,7 +257,7 @@ export async function POST(request) {
       proofOfAddressAssetId = await uploadToContentful(
         environment,
         proofOfAddressFile,
-        `Address Document - ${data.firstName} ${data.lastName}`,
+        `Address Document - ${firstName} ${lastName}`,
         "Proof of address document"
       );
       console.log(
@@ -256,31 +270,31 @@ export async function POST(request) {
     const entry = await environment.createEntry("contactForm", {
       fields: {
         firstName: {
-          "en-US": data.firstName.trim(),
+          "en-US": firstName.trim(),
         },
         lastName: {
-          "en-US": data.lastName.trim(),
+          "en-US": lastName.trim(),
         },
         email: {
-          "en-US": data.email.trim().toLowerCase(),
+          "en-US": email.trim().toLowerCase(),
         },
         phone: {
           "en-US": cleanPhone,
         },
         companyName: {
-          "en-US": data.companyName.trim(),
+          "en-US": companyName?.trim() || "",
         },
         companyNumber: {
-          "en-US": parseInt(data.companyNumber.trim(), 10),
+          "en-US": companyNumber?.trim() || "",
         },
         companyAddress: {
-          "en-US": data.companyAddress.trim(),
+          "en-US": companyAddress?.trim() || "",
         },
         companyWebsite: {
-          "en-US": data.companyWebsite.trim(),
+          "en-US": companyWebsite?.trim() || "",
         },
         proofofId: {
-          "en-US": data.proofofId
+          "en-US": proofOfIdAssetId
             ? {
                 sys: {
                   type: "Link",
@@ -291,7 +305,7 @@ export async function POST(request) {
             : null,
         },
         proofofAddress: {
-          "en-US": data.proofofAddress
+          "en-US": proofOfAddressAssetId
             ? {
                 sys: {
                   type: "Link",
@@ -307,7 +321,18 @@ export async function POST(request) {
     await entry.publish();
 
     // Send confirmation email
-    await sendEmail(data);
+    const userData = {
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+      email: email.trim().toLowerCase(),
+      phone: cleanPhone,
+      companyName: companyName?.trim() || "",
+      companyNumber: companyNumber?.trim() || "",
+      companyAddress: companyAddress?.trim() || "",
+      companyWebsite: companyWebsite?.trim() || "",
+    };
+
+    await sendEmail(userData);
 
     return Response.json({ success: true });
   } catch (error) {

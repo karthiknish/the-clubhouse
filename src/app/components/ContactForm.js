@@ -1,12 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 export default function ContactForm({ staggerChildren, fadeIn }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [proofOfIdFile, setProofOfIdFile] = useState(null);
+  const [proofOfAddressFile, setProofOfAddressFile] = useState(null);
+  const [isDraggingId, setIsDraggingId] = useState(false);
+  const [isDraggingAddress, setIsDraggingAddress] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
+
+  // Use useEffect to mark when component is mounted on the client
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,26 +24,20 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
     setError("");
 
     const formData = new FormData(e.target);
-    const data = {
-      firstName: formData.get("firstName"),
-      lastName: formData.get("lastName"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
-      companyName: formData.get("companyName"),
-      companyNumber: formData.get("companyNumber"),
-      companyAddress: formData.get("companyAddress"),
-      companyWebsite: formData.get("companyWebsite"),
-      proofofId: formData.get("proofofID"),
-      proofofAddress: formData.get("proofofAddress"),
-    };
+
+    // Add files to FormData if they exist
+    if (proofOfIdFile) {
+      formData.set("proofofID", proofOfIdFile);
+    }
+
+    if (proofOfAddressFile) {
+      formData.set("proofofAddress", proofOfAddressFile);
+    }
 
     try {
       const response = await fetch("/api/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        body: formData, // Send as FormData instead of JSON
       });
 
       const result = await response.json();
@@ -48,6 +52,67 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // Handle file drop for Proof of ID
+  const handleIdDrop = useCallback((e) => {
+    e.preventDefault();
+    setIsDraggingId(false);
+
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      const file = e.dataTransfer.files[0];
+      // Check file type
+      if (file.type.match("image/jpeg|image/png|application/pdf")) {
+        setProofOfIdFile(file);
+      } else {
+        setError("Please upload a valid file type (JPEG, PNG, or PDF)");
+      }
+    }
+  }, []);
+
+  // Handle file drop for Proof of Address
+  const handleAddressDrop = useCallback((e) => {
+    e.preventDefault();
+    setIsDraggingAddress(false);
+
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      const file = e.dataTransfer.files[0];
+      // Check file type
+      if (file.type.match("image/jpeg|image/png|application/pdf")) {
+        setProofOfAddressFile(file);
+      } else {
+        setError("Please upload a valid file type (JPEG, PNG, or PDF)");
+      }
+    }
+  }, []);
+
+  // Handle file input change for Proof of ID
+  const handleIdChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setProofOfIdFile(e.target.files[0]);
+    }
+  };
+
+  // Handle file input change for Proof of Address
+  const handleAddressChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setProofOfAddressFile(e.target.files[0]);
+    }
+  };
+
+  // Drag events
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDragEnter = (setDragging) => (e) => {
+    e.preventDefault();
+    setDragging(true);
+  };
+
+  const handleDragLeave = (setDragging) => (e) => {
+    e.preventDefault();
+    setDragging(false);
   };
 
   return (
@@ -202,17 +267,58 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
             />
           </div>
 
+          {/* Proof of ID Upload */}
           <div>
             <label
               htmlFor="proofofID"
-              accept="image/jpeg,image/png,application/pdf"
               className="block text-sm font-medium text-white"
             >
               Proof of ID
             </label>
-            <input type="file" name="proofofID" id="proofofID" />
+            <div
+              className={`mt-1 border-2 border-dashed rounded-md p-4 text-center cursor-pointer ${
+                isDraggingId
+                  ? "border-green-500 bg-green-50 bg-opacity-10"
+                  : "border-gray-300"
+              }`}
+              onDragOver={isMounted ? handleDragOver : undefined}
+              onDragEnter={
+                isMounted ? handleDragEnter(setIsDraggingId) : undefined
+              }
+              onDragLeave={
+                isMounted ? handleDragLeave(setIsDraggingId) : undefined
+              }
+              onDrop={isMounted ? handleIdDrop : undefined}
+              onClick={
+                isMounted
+                  ? () => document.getElementById("proofofID").click()
+                  : undefined
+              }
+            >
+              <input
+                type="file"
+                name="proofofID"
+                id="proofofID"
+                accept="image/jpeg,image/png,application/pdf"
+                onChange={handleIdChange}
+                className={isMounted ? "hidden" : "opacity-0 absolute"}
+                style={!isMounted ? { width: "1px", height: "1px" } : {}}
+              />
+              {proofOfIdFile ? (
+                <p className="text-sm text-white">
+                  File selected: {proofOfIdFile.name}
+                </p>
+              ) : (
+                <p className="text-sm text-gray-300">
+                  Drag and drop your file here, or click to select
+                  <br />
+                  <span className="text-xs">(JPEG, PNG, or PDF)</span>
+                </p>
+              )}
+            </div>
           </div>
 
+          {/* Proof of Address Upload */}
           <div>
             <label
               htmlFor="proofofAddress"
@@ -220,12 +326,47 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
             >
               Proof of Address
             </label>
-            <input
-              type="file"
-              accept="image/jpeg,image/png,application/pdf"
-              name="proofofAddress"
-              id="proofofAddress"
-            />
+            <div
+              className={`mt-1 border-2 border-dashed rounded-md p-4 text-center cursor-pointer ${
+                isDraggingAddress
+                  ? "border-green-500 bg-green-50 bg-opacity-10"
+                  : "border-gray-300"
+              }`}
+              onDragOver={isMounted ? handleDragOver : undefined}
+              onDragEnter={
+                isMounted ? handleDragEnter(setIsDraggingAddress) : undefined
+              }
+              onDragLeave={
+                isMounted ? handleDragLeave(setIsDraggingAddress) : undefined
+              }
+              onDrop={isMounted ? handleAddressDrop : undefined}
+              onClick={
+                isMounted
+                  ? () => document.getElementById("proofofAddress").click()
+                  : undefined
+              }
+            >
+              <input
+                type="file"
+                name="proofofAddress"
+                id="proofofAddress"
+                accept="image/jpeg,image/png,application/pdf"
+                onChange={handleAddressChange}
+                className={isMounted ? "hidden" : "opacity-0 absolute"}
+                style={!isMounted ? { width: "1px", height: "1px" } : {}}
+              />
+              {proofOfAddressFile ? (
+                <p className="text-sm text-white">
+                  File selected: {proofOfAddressFile.name}
+                </p>
+              ) : (
+                <p className="text-sm text-gray-300">
+                  Drag and drop your file here, or click to select
+                  <br />
+                  <span className="text-xs">(JPEG, PNG, or PDF)</span>
+                </p>
+              )}
+            </div>
           </div>
 
           <button
