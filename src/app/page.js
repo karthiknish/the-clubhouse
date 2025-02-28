@@ -608,7 +608,7 @@ export default function Home() {
         </section>
 
         {/* Contact Form */}
-        <ContactForm staggerChildren={staggerChildren} />
+        <ContactForm id="join-form" staggerChildren={staggerChildren} />
       </div>
     </main>
   );
