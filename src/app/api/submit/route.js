@@ -14,9 +14,18 @@ console.log("Creating Contentful client");
 const client = createClient({
   accessToken: process.env.CONTENTFUL_MANAGEMENT_TOKEN,
 });
+
 async function uploadToContentful(environment, file, title, description) {
   try {
-    // Create the asset
+    // Convert file to buffer
+    const buffer = await file.arrayBuffer();
+
+    // Create upload
+    const upload = await environment.createUpload({
+      file: buffer,
+    });
+
+    // Create the asset with the upload
     const asset = await environment.createAsset({
       fields: {
         title: {
@@ -29,8 +38,13 @@ async function uploadToContentful(environment, file, title, description) {
           "en-US": {
             contentType: file.type,
             fileName: file.name,
-            // For Next.js API routes with FormData
-            upload: Buffer.from(await file.arrayBuffer()).toString("base64"),
+            uploadFrom: {
+              sys: {
+                type: "Link",
+                linkType: "Upload",
+                id: upload.sys.id,
+              },
+            },
           },
         },
       },
@@ -46,6 +60,7 @@ async function uploadToContentful(environment, file, title, description) {
     throw error;
   }
 }
+
 async function sendEmail(data) {
   try {
     // Send confirmation to user

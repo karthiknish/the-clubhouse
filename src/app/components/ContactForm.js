@@ -77,6 +77,15 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
       errors.companyWebsite = "Company website is required";
     }
 
+    // Validate file uploads
+    if (!proofOfIdFile) {
+      errors.proofOfId = "Proof of ID document is required";
+    }
+
+    if (!proofOfAddressFile) {
+      errors.proofOfAddress = "Proof of address document is required";
+    }
+
     return errors;
   };
 
@@ -119,6 +128,7 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
 
       router.push("/thank-you");
     } catch (err) {
+      console.error("Form submission error:", err);
       setError(err.message || "Failed to submit form. Please try again.");
     } finally {
       setIsLoading(false);
@@ -135,8 +145,12 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
       // Check file type
       if (file.type.match("image/jpeg|image/png|application/pdf")) {
         setProofOfIdFile(file);
+        // Clear any previous error for this field
+        setFieldErrors((prev) => ({ ...prev, proofOfId: undefined }));
       } else {
-        setError("Please upload a valid file type (JPEG, PNG, or PDF)");
+        setError(
+          "Please upload a valid file type for Proof of ID (JPEG, PNG, or PDF)"
+        );
       }
     }
   }, []);
@@ -151,8 +165,12 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
       // Check file type
       if (file.type.match("image/jpeg|image/png|application/pdf")) {
         setProofOfAddressFile(file);
+        // Clear any previous error for this field
+        setFieldErrors((prev) => ({ ...prev, proofOfAddress: undefined }));
       } else {
-        setError("Please upload a valid file type (JPEG, PNG, or PDF)");
+        setError(
+          "Please upload a valid file type for Proof of Address (JPEG, PNG, or PDF)"
+        );
       }
     }
   }, []);
@@ -160,14 +178,32 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
   // Handle file input change for Proof of ID
   const handleIdChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      setProofOfIdFile(e.target.files[0]);
+      const file = e.target.files[0];
+      if (file.type.match("image/jpeg|image/png|application/pdf")) {
+        setProofOfIdFile(file);
+        // Clear any previous error for this field
+        setFieldErrors((prev) => ({ ...prev, proofOfId: undefined }));
+      } else {
+        setError(
+          "Please upload a valid file type for Proof of ID (JPEG, PNG, or PDF)"
+        );
+      }
     }
   };
 
   // Handle file input change for Proof of Address
   const handleAddressChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      setProofOfAddressFile(e.target.files[0]);
+      const file = e.target.files[0];
+      if (file.type.match("image/jpeg|image/png|application/pdf")) {
+        setProofOfAddressFile(file);
+        // Clear any previous error for this field
+        setFieldErrors((prev) => ({ ...prev, proofOfAddress: undefined }));
+      } else {
+        setError(
+          "Please upload a valid file type for Proof of Address (JPEG, PNG, or PDF)"
+        );
+      }
     }
   };
 
@@ -391,6 +427,8 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
               className={`mt-1 border-2 border-dashed rounded-md p-4 text-center cursor-pointer ${
                 isDraggingId
                   ? "border-green-500 bg-green-50 bg-opacity-10"
+                  : fieldErrors.proofOfId
+                  ? "border-red-500"
                   : "border-gray-300"
               }`}
               onDragOver={isMounted ? handleDragOver : undefined}
@@ -428,6 +466,11 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
                 </p>
               )}
             </div>
+            {fieldErrors.proofOfId && (
+              <p className="text-red-500 text-xs mt-1 text-left">
+                {fieldErrors.proofOfId}
+              </p>
+            )}
           </div>
 
           {/* Proof of Address Upload */}
@@ -442,6 +485,8 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
               className={`mt-1 border-2 border-dashed rounded-md p-4 text-center cursor-pointer ${
                 isDraggingAddress
                   ? "border-green-500 bg-green-50 bg-opacity-10"
+                  : fieldErrors.proofOfAddress
+                  ? "border-red-500"
                   : "border-gray-300"
               }`}
               onDragOver={isMounted ? handleDragOver : undefined}
@@ -479,6 +524,11 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
                 </p>
               )}
             </div>
+            {fieldErrors.proofOfAddress && (
+              <p className="text-red-500 text-xs mt-1 text-left">
+                {fieldErrors.proofOfAddress}
+              </p>
+            )}
           </div>
 
           <button
