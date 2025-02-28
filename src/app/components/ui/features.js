@@ -269,7 +269,7 @@ export const SkeletonFour = () => {
       }}
     >
       <Image
-        src="/ukmap.png"
+        src="/uk-map.png"
         alt="Global network"
         width={200}
         height={200}
