@@ -250,6 +250,27 @@ export async function POST(request) {
       );
     }
 
+    // Validate and parse company number
+    let companyNumberInt;
+    try {
+      companyNumberInt = parseInt(companyNumber?.trim() || "0", 10);
+      if (
+        isNaN(companyNumberInt) ||
+        companyNumberInt < 0 ||
+        companyNumberInt > 2147483647
+      ) {
+        return Response.json(
+          { error: "Company registration number is invalid" },
+          { status: 400 }
+        );
+      }
+    } catch (err) {
+      return Response.json(
+        { error: "Company registration number must be a valid number" },
+        { status: 400 }
+      );
+    }
+
     // Format company website to ensure it has https://
     let formattedWebsite = companyWebsite?.trim() || "";
     if (formattedWebsite && !formattedWebsite.startsWith("http")) {
@@ -306,7 +327,7 @@ export async function POST(request) {
           "en-US": companyName?.trim() || "",
         },
         companyNumber: {
-          "en-US": companyNumber?.trim() || "",
+          "en-US": companyNumberInt,
         },
         companyAddress: {
           "en-US": companyAddress?.trim() || "",
@@ -348,7 +369,7 @@ export async function POST(request) {
       email: email.trim().toLowerCase(),
       phone: cleanPhone,
       companyName: companyName?.trim() || "",
-      companyNumber: companyNumber?.trim() || "",
+      companyNumber: companyNumberInt,
       companyAddress: companyAddress?.trim() || "",
       companyWebsite: formattedWebsite,
     };
@@ -371,8 +392,17 @@ export async function POST(request) {
     }
 
     if (error.name === "ValidationFailed") {
+      // Check for specific validation errors
+      if (
+        error.details?.errors?.some((e) => e.path?.includes("companyNumber"))
+      ) {
+        return Response.json(
+          { error: "Company registration number must be a valid number" },
+          { status: 400 }
+        );
+      }
       return Response.json(
-        { error: "Form validation failed" },
+        { error: "Form validation failed. Please check your inputs." },
         { status: 400 }
       );
     }

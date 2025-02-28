@@ -61,8 +61,13 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
     if (!companyNumber || companyNumber.trim() === "") {
       errors.companyNumber = "Company registration number is required";
     } else if (!/^\d+$/.test(companyNumber)) {
-      errors.companyNumber =
-        "Company registration number should contain only digits";
+      errors.companyNumber = "Company registration number should contain only digits";
+    } else {
+      // Check if it's a valid number (not too large)
+      const num = parseInt(companyNumber, 10);
+      if (isNaN(num) || num <= 0 || num > 2147483647) {
+        errors.companyNumber = "Please enter a valid company registration number";
+      }
     }
 
     // Validate company address
@@ -363,7 +368,17 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
               className={`mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4 ${
                 fieldErrors.companyNumber ? "border-red-500" : ""
               }`}
+              onChange={(e) => {
+                // Only allow digits
+                const value = e.target.value;
+                if (value && !/^\d*$/.test(value)) {
+                  e.target.value = value.replace(/\D/g, "");
+                }
+              }}
             />
+            <p className="text-gray-400 text-xs mt-1 text-left">
+              Numbers only, no spaces or special characters
+            </p>
             {fieldErrors.companyNumber && (
               <p className="text-red-500 text-xs mt-1 text-left">
                 {fieldErrors.companyNumber}
