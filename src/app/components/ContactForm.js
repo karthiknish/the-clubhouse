@@ -11,6 +11,7 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
   const [isDraggingId, setIsDraggingId] = useState(false);
   const [isDraggingAddress, setIsDraggingAddress] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState({});
   const router = useRouter();
 
   // Use useEffect to mark when component is mounted on the client
@@ -18,12 +19,82 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
     setIsMounted(true);
   }, []);
 
+  const validateForm = (formData) => {
+    const errors = {};
+
+    // Validate first name
+    const firstName = formData.get("firstName");
+    if (!firstName || firstName.trim() === "") {
+      errors.firstName = "First name is required";
+    }
+
+    // Validate last name
+    const lastName = formData.get("lastName");
+    if (!lastName || lastName.trim() === "") {
+      errors.lastName = "Last name is required";
+    }
+
+    // Validate email
+    const email = formData.get("email");
+    if (!email || email.trim() === "") {
+      errors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errors.email = "Please enter a valid email address";
+    }
+
+    // Validate phone
+    const phone = formData.get("phone");
+    if (!phone || phone.trim() === "") {
+      errors.phone = "Phone number is required";
+    } else if (!/^\d+$/.test(phone)) {
+      errors.phone = "Phone number should contain only digits";
+    }
+
+    // Validate company name
+    const companyName = formData.get("companyName");
+    if (!companyName || companyName.trim() === "") {
+      errors.companyName = "Company name is required";
+    }
+
+    // Validate company number
+    const companyNumber = formData.get("companyNumber");
+    if (!companyNumber || companyNumber.trim() === "") {
+      errors.companyNumber = "Company registration number is required";
+    } else if (!/^\d+$/.test(companyNumber)) {
+      errors.companyNumber =
+        "Company registration number should contain only digits";
+    }
+
+    // Validate company address
+    const companyAddress = formData.get("companyAddress");
+    if (!companyAddress || companyAddress.trim() === "") {
+      errors.companyAddress = "Company address is required";
+    }
+
+    // Validate company website
+    const companyWebsite = formData.get("companyWebsite");
+    if (!companyWebsite || companyWebsite.trim() === "") {
+      errors.companyWebsite = "Company website is required";
+    }
+
+    return errors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
+    setFieldErrors({});
 
     const formData = new FormData(e.target);
+
+    // Validate form
+    const validationErrors = validateForm(formData);
+    if (Object.keys(validationErrors).length > 0) {
+      setFieldErrors(validationErrors);
+      setIsLoading(false);
+      return;
+    }
 
     // Add files to FormData if they exist
     if (proofOfIdFile) {
@@ -142,9 +213,15 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
                 type="text"
                 name="firstName"
                 id="firstName"
-                required
-                className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4"
+                className={`mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4 ${
+                  fieldErrors.firstName ? "border-red-500" : ""
+                }`}
               />
+              {fieldErrors.firstName && (
+                <p className="text-red-500 text-xs mt-1 text-left">
+                  {fieldErrors.firstName}
+                </p>
+              )}
             </div>
 
             <div>
@@ -158,9 +235,15 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
                 type="text"
                 name="lastName"
                 id="lastName"
-                required
-                className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4"
+                className={`mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4 ${
+                  fieldErrors.lastName ? "border-red-500" : ""
+                }`}
               />
+              {fieldErrors.lastName && (
+                <p className="text-red-500 text-xs mt-1 text-left">
+                  {fieldErrors.lastName}
+                </p>
+              )}
             </div>
           </div>
 
@@ -175,9 +258,15 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
               type="email"
               name="email"
               id="email"
-              required
-              className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4"
+              className={`mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4 ${
+                fieldErrors.email ? "border-red-500" : ""
+              }`}
             />
+            {fieldErrors.email && (
+              <p className="text-red-500 text-xs mt-1 text-left">
+                {fieldErrors.email}
+              </p>
+            )}
           </div>
 
           <div>
@@ -191,10 +280,15 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
               type="tel"
               name="phone"
               id="phone"
-              required
-              pattern="[0-9]*"
-              className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4"
+              className={`mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4 ${
+                fieldErrors.phone ? "border-red-500" : ""
+              }`}
             />
+            {fieldErrors.phone && (
+              <p className="text-red-500 text-xs mt-1 text-left">
+                {fieldErrors.phone}
+              </p>
+            )}
           </div>
 
           <div>
@@ -208,9 +302,15 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
               type="text"
               name="companyName"
               id="companyName"
-              required
-              className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4"
+              className={`mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4 ${
+                fieldErrors.companyName ? "border-red-500" : ""
+              }`}
             />
+            {fieldErrors.companyName && (
+              <p className="text-red-500 text-xs mt-1 text-left">
+                {fieldErrors.companyName}
+              </p>
+            )}
           </div>
 
           <div>
@@ -224,15 +324,15 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
               type="text"
               name="companyNumber"
               id="companyNumber"
-              required
-              pattern="[0-9]*"
-              onKeyPress={(e) => {
-                if (!/[0-9]/.test(e.key)) {
-                  e.preventDefault();
-                }
-              }}
-              className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4"
+              className={`mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4 ${
+                fieldErrors.companyNumber ? "border-red-500" : ""
+              }`}
             />
+            {fieldErrors.companyNumber && (
+              <p className="text-red-500 text-xs mt-1 text-left">
+                {fieldErrors.companyNumber}
+              </p>
+            )}
           </div>
 
           <div>
@@ -246,9 +346,15 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
               name="companyAddress"
               id="companyAddress"
               rows={2}
-              required
-              className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4"
+              className={`mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4 ${
+                fieldErrors.companyAddress ? "border-red-500" : ""
+              }`}
             />
+            {fieldErrors.companyAddress && (
+              <p className="text-red-500 text-xs mt-1 text-left">
+                {fieldErrors.companyAddress}
+              </p>
+            )}
           </div>
 
           <div>
@@ -262,9 +368,15 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
               type="text"
               name="companyWebsite"
               id="companyWebsite"
-              required
-              className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4"
+              className={`mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2 px-4 ${
+                fieldErrors.companyWebsite ? "border-red-500" : ""
+              }`}
             />
+            {fieldErrors.companyWebsite && (
+              <p className="text-red-500 text-xs mt-1 text-left">
+                {fieldErrors.companyWebsite}
+              </p>
+            )}
           </div>
 
           {/* Proof of ID Upload */}
