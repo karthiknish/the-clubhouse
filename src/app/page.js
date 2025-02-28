@@ -1,11 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { FeaturesSection } from "./components/ui/features";
 import { CardSection } from "./components/ui/card";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+
 import ContactForm from "./components/ContactForm";
 // Animation variants
 const fadeIn = {

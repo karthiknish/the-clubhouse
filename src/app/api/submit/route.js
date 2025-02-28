@@ -136,37 +136,72 @@ async function sendEmail(data) {
             </tr>
             <tr>
               <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>First Name</strong></td>
-              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.firstName}</td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${
+                data.firstName
+              }</td>
             </tr>
             <tr>
               <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Last Name</strong></td>
-              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.lastName}</td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${
+                data.lastName
+              }</td>
             </tr>
             <tr>
               <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Email</strong></td>
-              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.email}</td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${
+                data.email
+              }</td>
             </tr>
             <tr>
               <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Phone</strong></td>
-              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.phone}</td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${
+                data.phone
+              }</td>
             </tr>
             <tr>
               <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Company Name</strong></td>
-              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.companyName}</td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${
+                data.companyName
+              }</td>
             </tr>
             <tr>
               <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Company Number</strong></td>
-              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.companyNumber}</td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${
+                data.companyNumber
+              }</td>
             </tr>
             <tr>
               <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Company Address</strong></td>
-              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.companyAddress}</td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${
+                data.companyAddress
+              }</td>
             </tr>
             <tr>
               <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Company Website</strong></td>
-              <td style="border: 1px solid #dee2e6; padding: 12px;">${data.companyWebsite}</td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;">${
+                data.companyWebsite
+              }</td>
             </tr>
-            
+            ${
+              data.proofOfIdUrl
+                ? `
+            <tr>
+              <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Proof of ID</strong></td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;"><a href="${data.proofOfIdUrl}" target="_blank">View Document</a></td>
+            </tr>
+            `
+                : ""
+            }
+            ${
+              data.proofOfAddressUrl
+                ? `
+            <tr>
+              <td style="border: 1px solid #dee2e6; padding: 12px;"><strong>Proof of Address</strong></td>
+              <td style="border: 1px solid #dee2e6; padding: 12px;"><a href="${data.proofOfAddressUrl}" target="_blank">View Document</a></td>
+            </tr>
+            `
+                : ""
+            }
           </table>
           <p>This application has been automatically saved to Contentful.</p>
           <p>Please review and take appropriate action.</p>
@@ -283,6 +318,8 @@ export async function POST(request) {
     const environment = await space.getEnvironment("master");
     let proofOfIdAssetId = null;
     let proofOfAddressAssetId = null;
+    let proofOfIdUrl = null;
+    let proofOfAddressUrl = null;
 
     if (proofOfIdFile && proofOfIdFile instanceof File) {
       console.log("Uploading proof of ID document");
@@ -293,7 +330,18 @@ export async function POST(request) {
         "Proof of identification document"
       );
       console.log("Proof of ID uploaded, asset ID:", proofOfIdAssetId);
+
+      // Get the asset URL
+      if (proofOfIdAssetId) {
+        const asset = await environment.getAsset(proofOfIdAssetId);
+        proofOfIdUrl = asset.fields.file["en-US"].url;
+        // Make sure URL is absolute
+        if (proofOfIdUrl && !proofOfIdUrl.startsWith("http")) {
+          proofOfIdUrl = `https:${proofOfIdUrl}`;
+        }
+      }
     }
+
     if (proofOfAddressFile && proofOfAddressFile instanceof File) {
       console.log("Uploading proof of address document");
       proofOfAddressAssetId = await uploadToContentful(
@@ -306,6 +354,16 @@ export async function POST(request) {
         "Proof of address uploaded, asset ID:",
         proofOfAddressAssetId
       );
+
+      // Get the asset URL
+      if (proofOfAddressAssetId) {
+        const asset = await environment.getAsset(proofOfAddressAssetId);
+        proofOfAddressUrl = asset.fields.file["en-US"].url;
+        // Make sure URL is absolute
+        if (proofOfAddressUrl && !proofOfAddressUrl.startsWith("http")) {
+          proofOfAddressUrl = `https:${proofOfAddressUrl}`;
+        }
+      }
     }
 
     // Create the entry
@@ -372,6 +430,8 @@ export async function POST(request) {
       companyNumber: companyNumberInt,
       companyAddress: companyAddress?.trim() || "",
       companyWebsite: formattedWebsite,
+      proofOfIdUrl: proofOfIdUrl,
+      proofOfAddressUrl: proofOfAddressUrl,
     };
 
     await sendEmail(userData);
@@ -383,7 +443,7 @@ export async function POST(request) {
     if (error.name === "AccessTokenInvalid") {
       return Response.json({ error: "Authentication failed" }, { status: 401 });
     }
-    
+
     if (error.name === "RateLimitExceeded") {
       return Response.json(
         { error: "Too many requests, please try again later" },
