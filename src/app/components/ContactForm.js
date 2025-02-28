@@ -376,9 +376,7 @@ export default function ContactForm({ staggerChildren, fadeIn }) {
                 }
               }}
             />
-            <p className="text-gray-400 text-xs mt-1 text-left">
-              Numbers only, no spaces or special characters
-            </p>
+
             {fieldErrors.companyNumber && (
               <p className="text-red-500 text-xs mt-1 text-left">
                 {fieldErrors.companyNumber}

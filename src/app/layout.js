@@ -2,6 +2,7 @@ import { Zilla_Slab } from "next/font/google";
 import "./globals.css";
 import Header from "./components/header";
 import Footer from "./components/ui/footer";
+
 const zillaSlabFont = Zilla_Slab({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -29,7 +30,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" href="/favicon.png" sizes="any" />
       </head>
-      <body className="font-zilla">
+      <body className="font-zilla" suppressHydrationWarning={true}>
         <Header />
         {children}
         <Footer />

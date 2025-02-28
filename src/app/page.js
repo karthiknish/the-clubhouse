@@ -423,8 +423,8 @@ export default function Home() {
                 <div className="text-[#d1d5d0]">Partner Brands</div>
               </motion.div>
               <motion.div variants={fadeIn}>
-                <div className="text-4xl font-bold mb-2">12</div>
-                <div className="text-[#d1d5d0]">Global Locations</div>
+                <div className="text-4xl font-bold mb-2">12+</div>
+                <div className="text-[#d1d5d0]">UK Locations</div>
               </motion.div>
             </div>
           </motion.div>
@@ -449,7 +449,7 @@ export default function Home() {
               {[
                 {
                   q: "What is included in the membership?",
-                  a: "Our membership includes access to exclusive events, networking opportunities, business resources, partner discounts, and our global community of professionals.",
+                  a: "Our membership includes access to exclusive events, networking opportunities, business resources, partner discounts, and our UK community of professionals.",
                 },
                 {
                   q: "How much does membership cost?",

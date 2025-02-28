@@ -1,10 +1,21 @@
-import React, { useEffect, useRef } from "react";
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import createGlobe from "cobe";
+
 import { motion } from "framer-motion";
-import { IconBrandYoutubeFilled } from "@tabler/icons-react";
-import Link from "next/link";
+
+// Client-only wrapper component
+const ClientOnly = ({ children, fallback = null }) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  return isClient ? children : fallback;
+};
 
 export function FeaturesSection() {
   const features = [
@@ -20,7 +31,15 @@ export function FeaturesSection() {
       title: "Business Networking",
       description:
         "Connect and collaborate with other SMEs to generate valuable business opportunities and partnerships.",
-      skeleton: <SkeletonTwo />,
+      skeleton: (
+        <ClientOnly
+          fallback={
+            <div className="h-60 w-full bg-gray-100 dark:bg-gray-800 animate-pulse rounded-md"></div>
+          }
+        >
+          <SkeletonTwo />
+        </ClientOnly>
+      ),
       className:
         "col-span-1 md:col-span-2 lg:col-span-2 border-b dark:border-neutral-800",
     },
@@ -33,9 +52,9 @@ export function FeaturesSection() {
         "col-span-1 md:col-span-3 lg:col-span-3 border-b md:border-r dark:border-neutral-800",
     },
     {
-      title: "Global Reach",
+      title: "Grow Your Network",
       description:
-        "Connect with our members from around the world through our global network.",
+        "Expand your professional connections and build valuable relationships with other UK business leaders and entrepreneurs.",
       skeleton: <SkeletonFour />,
       className:
         "col-span-1 md:col-span-3 lg:col-span-3 border-b md:border-none",
@@ -157,6 +176,12 @@ export const SkeletonTwo = () => {
       zIndex: 100,
     },
   };
+
+  // Generate rotations directly without useEffect
+  const rotations = Array(images.length * 3)
+    .fill(0)
+    .map(() => Math.random() * 20 - 10);
+
   return (
     <div className="relative flex flex-col items-start p-8 gap-10 h-full overflow-hidden">
       <div className="flex flex-row -ml-20">
@@ -165,7 +190,7 @@ export const SkeletonTwo = () => {
             variants={imageVariants}
             key={"images-first" + idx}
             style={{
-              rotate: Math.random() * 20 - 10,
+              rotate: rotations[idx],
             }}
             whileHover="whileHover"
             whileTap="whileTap"
@@ -186,7 +211,7 @@ export const SkeletonTwo = () => {
           <motion.div
             key={"images-second" + idx}
             style={{
-              rotate: Math.random() * 20 - 10,
+              rotate: rotations[idx + images.length],
             }}
             variants={imageVariants}
             whileHover="whileHover"
@@ -208,7 +233,7 @@ export const SkeletonTwo = () => {
           <motion.div
             key={"images-third" + idx}
             style={{
-              rotate: Math.random() * 20 - 10,
+              rotate: rotations[idx + images.length * 2],
             }}
             variants={imageVariants}
             whileHover="whileHover"
@@ -234,55 +259,22 @@ export const SkeletonTwo = () => {
 
 export const SkeletonFour = () => {
   return (
-    <div className="h-60 md:h-60 flex flex-col items-center relative bg-transparent dark:bg-transparent mt-10">
-      <Globe className="absolute -right-10 md:-right-10 -bottom-80 md:-bottom-72" />
-    </div>
-  );
-};
-
-export const Globe = ({ className }) => {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    let phi = 0;
-
-    if (!canvasRef.current) return;
-
-    const globe = createGlobe(canvasRef.current, {
-      devicePixelRatio: 2,
-      width: 600 * 2,
-      height: 600 * 2,
-      phi: 0,
-      theta: 0,
-      dark: 0,
-      diffuse: 1.2,
-      mapSamples: 16000,
-      mapBrightness: 6,
-      baseColor: [1, 1, 1], // Changed to white
-      markerColor: [0.1, 0.8, 1],
-      glowColor: [1, 1, 1],
-      markers: [
-        { location: [51.5074, -0.1278], size: 0.03 }, // London
-        { location: [40.7128, -74.006], size: 0.03 }, // New York
-        { location: [35.6762, 139.6503], size: 0.03 }, // Tokyo
-        { location: [-33.8688, 151.2093], size: 0.03 }, // Sydney
-      ],
-      onRender: (state) => {
-        state.phi = phi;
-        phi += 0.01;
-      },
-    });
-
-    return () => {
-      globe.destroy();
-    };
-  }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      style={{ width: 600, height: 600, maxWidth: "100%", aspectRatio: 1 }}
-      className={className}
-    />
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      whileHover={{
+        scale: 1.05,
+        transition: { duration: 0.3 },
+      }}
+    >
+      <Image
+        src="/UKMap.png"
+        alt="Global network"
+        width={200}
+        height={200}
+        className="h-full w-full bg-transparent object-contain object-center rounded-sm"
+      />
+    </motion.div>
   );
 };
