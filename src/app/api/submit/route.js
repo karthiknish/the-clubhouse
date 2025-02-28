@@ -235,6 +235,12 @@ export async function POST(request) {
       );
     }
 
+    // Format company website to ensure it has https://
+    let formattedWebsite = companyWebsite?.trim() || "";
+    if (formattedWebsite && !formattedWebsite.startsWith("http")) {
+      formattedWebsite = `https://${formattedWebsite}`;
+    }
+
     // Get the space and environment
     const space = await client.getSpace(process.env.CONTENTFUL_SPACE_ID);
     console.log("Space:", space);
@@ -291,7 +297,7 @@ export async function POST(request) {
           "en-US": companyAddress?.trim() || "",
         },
         companyWebsite: {
-          "en-US": companyWebsite?.trim() || "",
+          "en-US": formattedWebsite,
         },
         proofofId: {
           "en-US": proofOfIdAssetId
@@ -329,7 +335,7 @@ export async function POST(request) {
       companyName: companyName?.trim() || "",
       companyNumber: companyNumber?.trim() || "",
       companyAddress: companyAddress?.trim() || "",
-      companyWebsite: companyWebsite?.trim() || "",
+      companyWebsite: formattedWebsite,
     };
 
     await sendEmail(userData);
@@ -340,6 +346,48 @@ export async function POST(request) {
 
     if (error.name === "AccessTokenInvalid") {
       return Response.json({ error: "Authentication failed" }, { status: 401 });
+    }
+    
+    if (error.name === "RateLimitExceeded") {
+      return Response.json(
+        { error: "Too many requests, please try again later" },
+        { status: 429 }
+      );
+    }
+
+    if (error.name === "ValidationFailed") {
+      return Response.json(
+        { error: "Form validation failed" },
+        { status: 400 }
+      );
+    }
+
+    if (error.message && error.message.includes("email")) {
+      return Response.json(
+        { error: "Failed to send confirmation email" },
+        { status: 500 }
+      );
+    }
+
+    if (error.message && error.message.includes("upload")) {
+      return Response.json(
+        { error: "Failed to upload documents" },
+        { status: 500 }
+      );
+    }
+
+    if (error.message && error.message.includes("asset")) {
+      return Response.json(
+        { error: "Invalid document format" },
+        { status: 400 }
+      );
+    }
+
+    if (error.message && error.message.includes("contentful")) {
+      return Response.json(
+        { error: "Failed to save your application" },
+        { status: 500 }
+      );
     }
 
     return Response.json({ error: "Failed to submit form" }, { status: 500 });
