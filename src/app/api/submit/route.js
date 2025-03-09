@@ -231,9 +231,12 @@ export async function POST(request) {
     const contentType = request.headers.get("Content-Type") || "";
 
     if (!contentType.includes("multipart/form-data")) {
-      return Response.json(
-        { error: "Content-Type must be multipart/form-data" },
-        { status: 400 }
+      return new Response(
+        JSON.stringify({ error: "Content-Type must be multipart/form-data" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
       );
     }
 
@@ -255,22 +258,43 @@ export async function POST(request) {
 
     // Validate required fields
     if (!firstName?.trim()) {
-      return Response.json(
-        { error: "First Name is required" },
-        { status: 400 }
-      );
+      return new Response(JSON.stringify({ error: "First Name is required" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
     }
     if (!lastName?.trim()) {
-      return Response.json({ error: "Last Name is required" }, { status: 400 });
+      return new Response(JSON.stringify({ error: "Last Name is required" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
     }
     if (!email?.trim()) {
-      return Response.json({ error: "Email is required" }, { status: 400 });
+      return new Response(JSON.stringify({ error: "Email is required" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email?.trim())) {
+      return new Response(
+        JSON.stringify({ error: "Please enter a valid email address" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     if (!phone) {
-      return Response.json(
-        { error: "Phone number is required" },
-        { status: 400 }
+      return new Response(
+        JSON.stringify({ error: "Phone number is required" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
       );
     }
 
@@ -279,9 +303,39 @@ export async function POST(request) {
 
     // Validate phone number is a valid integer
     if (isNaN(cleanPhone)) {
-      return Response.json(
-        { error: "Please enter a valid phone number" },
-        { status: 400 }
+      return new Response(
+        JSON.stringify({ error: "Please enter a valid phone number" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    // Validate phone number length
+    if (
+      cleanPhone.toString().length < 10 ||
+      cleanPhone.toString().length > 15
+    ) {
+      return new Response(
+        JSON.stringify({
+          error: "Phone number must be between 10 and 15 digits",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    // Validate company name if provided
+    if (companyName && companyName.trim().length < 2) {
+      return new Response(
+        JSON.stringify({ error: "Company name must be at least 2 characters" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
       );
     }
 
@@ -294,15 +348,36 @@ export async function POST(request) {
         companyNumberInt < 0 ||
         companyNumberInt > 2147483647
       ) {
-        return Response.json(
-          { error: "Company registration number is invalid" },
-          { status: 400 }
+        return new Response(
+          JSON.stringify({ error: "Company registration number is invalid" }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
         );
       }
     } catch (err) {
-      return Response.json(
-        { error: "Company registration number must be a valid number" },
-        { status: 400 }
+      return new Response(
+        JSON.stringify({
+          error: "Company registration number must be a valid number",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    // Validate company address if provided
+    if (companyAddress && companyAddress.trim().length < 5) {
+      return new Response(
+        JSON.stringify({
+          error: "Company address must be at least 5 characters",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
       );
     }
 
@@ -310,6 +385,86 @@ export async function POST(request) {
     let formattedWebsite = companyWebsite?.trim() || "";
     if (formattedWebsite && !formattedWebsite.startsWith("http")) {
       formattedWebsite = `https://${formattedWebsite}`;
+    }
+
+    // Validate website format if provided
+    if (formattedWebsite) {
+      try {
+        new URL(formattedWebsite);
+      } catch (err) {
+        return new Response(
+          JSON.stringify({ error: "Please enter a valid website URL" }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+    }
+
+    // Validate file types if provided
+    if (proofOfIdFile && proofOfIdFile instanceof File) {
+      const validFileTypes = [
+        "application/pdf",
+        "image/jpeg",
+        "image/png",
+        "image/jpg",
+      ];
+      if (!validFileTypes.includes(proofOfIdFile.type)) {
+        return new Response(
+          JSON.stringify({
+            error: "Proof of ID must be a PDF, JPEG, or PNG file",
+          }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+
+      // Check file size (max 10MB)
+      if (proofOfIdFile.size > 10 * 1024 * 1024) {
+        return new Response(
+          JSON.stringify({ error: "Proof of ID file must be less than 10MB" }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+    }
+
+    if (proofOfAddressFile && proofOfAddressFile instanceof File) {
+      const validFileTypes = [
+        "application/pdf",
+        "image/jpeg",
+        "image/png",
+        "image/jpg",
+      ];
+      if (!validFileTypes.includes(proofOfAddressFile.type)) {
+        return new Response(
+          JSON.stringify({
+            error: "Proof of Address must be a PDF, JPEG, or PNG file",
+          }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+
+      // Check file size (max 10MB)
+      if (proofOfAddressFile.size > 10 * 1024 * 1024) {
+        return new Response(
+          JSON.stringify({
+            error: "Proof of Address file must be less than 10MB",
+          }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
     }
 
     // Get the space and environment
@@ -436,18 +591,27 @@ export async function POST(request) {
 
     await sendEmail(userData);
 
-    return Response.json({ success: true });
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
     console.error("Submission Error:", error);
 
     if (error.name === "AccessTokenInvalid") {
-      return Response.json({ error: "Authentication failed" }, { status: 401 });
+      return new Response(JSON.stringify({ error: "Authentication failed" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     if (error.name === "RateLimitExceeded") {
-      return Response.json(
-        { error: "Too many requests, please try again later" },
-        { status: 429 }
+      return new Response(
+        JSON.stringify({ error: "Too many requests, please try again later" }),
+        {
+          status: 429,
+          headers: { "Content-Type": "application/json" },
+        }
       );
     }
 
@@ -456,45 +620,70 @@ export async function POST(request) {
       if (
         error.details?.errors?.some((e) => e.path?.includes("companyNumber"))
       ) {
-        return Response.json(
-          { error: "Company registration number must be a valid number" },
-          { status: 400 }
+        return new Response(
+          JSON.stringify({
+            error: "Company registration number must be a valid number",
+          }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
         );
       }
-      return Response.json(
-        { error: "Form validation failed. Please check your inputs." },
-        { status: 400 }
+      return new Response(
+        JSON.stringify({
+          error: "Form validation failed. Please check your inputs.",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
       );
     }
 
     if (error.message && error.message.includes("email")) {
-      return Response.json(
-        { error: "Failed to send confirmation email" },
-        { status: 500 }
+      return new Response(
+        JSON.stringify({ error: "Failed to send confirmation email" }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
       );
     }
 
     if (error.message && error.message.includes("upload")) {
-      return Response.json(
-        { error: "Failed to upload documents" },
-        { status: 500 }
+      return new Response(
+        JSON.stringify({ error: "Failed to upload documents" }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
       );
     }
 
     if (error.message && error.message.includes("asset")) {
-      return Response.json(
-        { error: "Invalid document format" },
-        { status: 400 }
+      return new Response(
+        JSON.stringify({ error: "Invalid document format" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
       );
     }
 
     if (error.message && error.message.includes("contentful")) {
-      return Response.json(
-        { error: "Failed to save your application" },
-        { status: 500 }
+      return new Response(
+        JSON.stringify({ error: "Failed to save your application" }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
       );
     }
 
-    return Response.json({ error: "Failed to submit form" }, { status: 500 });
+    return new Response(JSON.stringify({ error: "Failed to submit form" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
