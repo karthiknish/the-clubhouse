@@ -571,8 +571,9 @@ export default function Home() {
                 whileHover={{ y: -10 }}
               >
                 <p className="italic mb-4">
-                  "Clubhouse has opened doors I never even knew existed. The
-                  quality of connections I've made here is unmatched."
+                  &ldquo;Clubhouse has opened doors I never even knew existed.
+                  The quality of connections I&apos;ve made here is
+                  unmatched.&rdquo;
                 </p>
                 <p className="font-semibold">- S.M</p>
               </motion.div>
@@ -582,9 +583,9 @@ export default function Home() {
                 whileHover={{ y: -10 }}
               >
                 <p className="italic mb-4">
-                  "The resources and support available through Clubhouse are
-                  invaluable. The curated events and mentorship opportunities
-                  have enhanced my skills."
+                  &ldquo;The resources and support available through Clubhouse
+                  are invaluable. The curated events and mentorship
+                  opportunities have enhanced my skills.&rdquo;
                 </p>
                 <p className="font-semibold">- A.P</p>
               </motion.div>
@@ -594,9 +595,9 @@ export default function Home() {
                 whileHover={{ y: -10 }}
               >
                 <p className="italic mb-4">
-                  "Clubhouse is so much more than professional networking. I've
-                  built lasting friendships and experienced things I never would
-                  have otherwise."
+                  &ldquo;Clubhouse is so much more than professional networking.
+                  I&apos;ve built lasting friendships and experienced things I
+                  never would have otherwise.&rdquo;
                 </p>
                 <p className="font-semibold">- M.R</p>
               </motion.div>

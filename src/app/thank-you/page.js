@@ -31,7 +31,7 @@ export default function ThankYouPage() {
             transition={{ delay: 0.7, duration: 0.8 }}
             className="text-xl mb-6 text-center"
           >
-            We've received your enquiry and will be in touch shortly.
+            We&apos;ve received your enquiry and will be in touch shortly.
           </motion.p>
           <motion.ul
             initial={{ opacity: 0 }}
@@ -79,7 +79,7 @@ export default function ThankYouPage() {
                   d="M5 13l4 4L19 7"
                 />
               </svg>
-              You'll receive an email confirmation shortly
+              You&apos;ll receive an email confirmation shortly
             </motion.li>
             <motion.li
               initial={{ opacity: 0, x: -20 }}
