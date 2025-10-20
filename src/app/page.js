@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { FeaturesSection } from "./components/ui/features";
 import { CardSection } from "./components/ui/card";
+import JoinFormEmbed from "./components/JoinFormEmbed";
 // Animation variants
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -602,24 +603,7 @@ export default function Home() {
             </motion.div>
           </motion.div>
         </section>
-        <section id="join-form">
-          <iframe
-            id="JotFormIFrame-241052282184046"
-            title="Clubhouse Business App"
-            allowtransparency="true"
-            allow="geolocation; microphone;"
-            src="https://form.jotform.com/241052282184046"
-            frameBorder="0"
-            style={{
-              minWidth: "100%",
-              maxWidth: "100%",
-              height: "539px",
-              border: "none",
-              backgroundColor: "transparent",
-            }}
-            scrolling="no"
-          />
-        </section>
+        <JoinFormEmbed />
       </div>
     </main>
   );

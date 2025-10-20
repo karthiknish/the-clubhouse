@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "irp.cdn-website.com",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
   },
 };

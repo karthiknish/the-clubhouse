@@ -1,0 +1,143 @@
+{
+  "clubHospitality": {
+    "hero": {
+      "title": "Premium access to the world's most sought-after moments",
+      "body": "Club Hospitality unlocks seamless, fully hosted experiences that place you at the centre of live sport and entertainment. Membership provides preferential allocations, elevated service, and concierge support for in-demand events such as:",
+      "bullets": [
+        "Formula 1",
+        "Premier League Football",
+        "Horse Racing",
+        "Six Nations Rugby",
+        "Music Concerts"
+      ],
+      "ctaLabel": "Become a Member",
+      "image": {
+        "src": "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1740",
+        "alt": "Guests enjoying fine dining in an elegant hospitality suite"
+      }
+    },
+    "tailored": {
+      "heading": "Hospitality tailored to every occasion",
+      "paragraphs": [
+        "Whether you are building relationships with clients or celebrating a personal milestone, our team curates every detail: premium seating, elevated dining, logistics, and post-event moments that leave a lasting impression.",
+        "Begin with your brief and preferred atmosphere—intimate, high-energy, or something in between. We secure allocations ahead of public release and coordinate itineraries that keep your guests relaxed and inspired throughout the day."
+      ]
+    },
+    "experiences": [
+      {
+        "title": "Formula 1",
+        "description": "Paddock Club hospitality, driver meet-and-greets, and private transfers keeping you trackside from practice to podium.",
+        "image": "https://images.unsplash.com/photo-1623258406180-df4c68d0798f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1740",
+        "alt": "Formula 1 cars racing around a corner on a sunlit track"
+      },
+      {
+        "title": "Premier League Football",
+        "description": "Executive suites, curated dining, and post-match lounge access across the league's most in-demand fixtures.",
+        "image": "https://images.unsplash.com/photo-1665413813191-3143ec934960?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1740",
+        "alt": "Football stadium under floodlights with fans cheering"
+      },
+      {
+        "title": "Horse Racing",
+        "description": "Private boxes, course-side fine dining, and behind-the-scenes stable visits at marquee race days.",
+        "image": "https://images.unsplash.com/photo-1507514604110-ba3347c457f6?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1740",
+        "alt": "Racehorses sprinting down the track during a race"
+      },
+      {
+        "title": "Six Nations Rugby",
+        "description": "Premium seating, hosted hospitality suites, and exclusive player appearances before and after the match.",
+        "image": "https://images.unsplash.com/photo-1495329356033-eb76e0af9fd9?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1738",
+        "alt": "Rugby players contesting possession in a match"
+      },
+      {
+        "title": "Music Concerts",
+        "description": "VIP lounge access, fast-track entry, and experiential add-ons for stadium shows and boutique performances.",
+        "image": "https://images.unsplash.com/photo-1590329647485-7f681a484e52?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1548",
+        "alt": "Crowd raising hands during a live music performance"
+      }
+    ],
+    "benefits": {
+      "heading": "Why members choose Club Hospitality",
+      "cards": [
+        {
+          "title": "Guaranteed allocations",
+          "detail": "Access allocations before they reach the market, including high-demand finals and award nights."
+        },
+        {
+          "title": "Hosted guest journey",
+          "detail": "Dedicated on-the-day hosts coordinate arrivals, personalised gifting, and smooth departures."
+        },
+        {
+          "title": "Post-event follow ups",
+          "detail": "We capture feedback, share photography, and plan the next touchpoint with your network."
+        }
+      ],
+      "ctaLabel": "Explore Membership Options"
+    },
+    "finalCta": {
+      "heading": "Secure the best seats in the house",
+      "body": "Share your upcoming calendar and we will curate hospitality that aligns with your guests, brand, and objectives.",
+      "ctaLabel": "Join Now"
+    }
+  },
+  "luxuryTravel": {
+    "hero": {
+      "title": "Journeys curated for life's defining moments",
+      "body": "Discover elevated escapes shaped around your preferences. From swift weekend getaways to multi-destination adventures, Clubhouse members gain access to exceptional travel options with concierge support at every step.",
+      "bullets": [
+        "Private jet charters and air upgrades",
+        "Signature stays across flagship destinations",
+        "Yacht, rail, and expedition itineraries",
+        "Insider access to global cultural moments"
+      ],
+      "primaryCtaLabel": "Join Clubhouse",
+      "image": {
+        "src": "https://images.unsplash.com/photo-1469796466635-455ede028aca?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1740",
+        "alt": "Luxury travellers enjoying panoramic views on a sunset terrace"
+      }
+    },
+    "tailored": {
+      "heading": "Tailored escapes for every occasion",
+      "paragraphs": [
+        "Allow our travel team to shape your next journey, whether you are celebrating a milestone, rewarding top performers, or simply craving time away. We orchestrate end-to-end itineraries that balance relaxation, exploration, and exclusive access, ensuring each day unfolds exactly as imagined.",
+        "Prefer spontaneity? We can arrange last-minute stays, secure premium seats on fully booked flights, and introduce you to hidden gems normally reserved for insiders."
+      ],
+      "image": {
+        "src": "https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=1200&q=80",
+        "alt": "Couple relaxing on sun loungers by a luxury resort pool"
+      }
+    },
+    "conciergeHighlights": [
+      {
+        "title": "Door-to-door ease",
+        "detail": "Experienced travel specialists manage every detail, from chauffeured transfers to in-destination guides and hosts."
+      },
+      {
+        "title": "Curated partnerships",
+        "detail": "We collaborate with trusted airlines, hotels, yacht brokers, and local experts to deliver dependable excellence."
+      },
+      {
+        "title": "Personal touches",
+        "detail": "Dining reservations, wellness treatments, and once-in-a-lifetime moments are woven into each itinerary on request."
+      }
+    ],
+    "assurance": {
+      "heading": "Travel with confidence",
+      "intro": "Our concierge team blends meticulous planning with decisive on-the-day support, giving you and your guests the assurance to savour every moment.",
+      "items": [
+        {
+          "title": "Dedicated travel curator",
+          "detail": "A single point of contact shapes your itinerary, monitors each connection, and remains on call throughout your journey."
+        },
+        {
+          "title": "Transparent planning timeline",
+          "detail": "We map proposal milestones, confirmations, and guest communications so you always know the next step."
+        },
+        {
+          "title": "24/7 support worldwide",
+          "detail": "Access on-the-ground assistance for flight adjustments, private transfers, and last-minute experiences in any time zone."
+        }
+      ],
+      "ctaLabel": "Explore Membership Options"
+    }
+  }
+}
