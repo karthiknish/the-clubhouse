@@ -397,35 +397,6 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* Stats Section */}
-        <section className="py-16 bg-[#393F37] text-white">
-          <motion.div
-            className="max-w-6xl mx-auto px-4"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerChildren}
-          >
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <motion.div variants={fadeIn}>
-                <div className="text-4xl font-bold mb-2">2500+</div>
-                <div className="text-[#d1d5d0]">Active Members</div>
-              </motion.div>
-              <motion.div variants={fadeIn}>
-                <div className="text-4xl font-bold mb-2">150+</div>
-                <div className="text-[#d1d5d0]">Events Yearly</div>
-              </motion.div>
-              <motion.div variants={fadeIn}>
-                <div className="text-4xl font-bold mb-2">50+</div>
-                <div className="text-[#d1d5d0]">Partner Brands</div>
-              </motion.div>
-              <motion.div variants={fadeIn}>
-                <div className="text-4xl font-bold mb-2">12+</div>
-                <div className="text-[#d1d5d0]">UK Locations</div>
-              </motion.div>
-            </div>
-          </motion.div>
-        </section>
 
         {/* FAQ Section */}
         <section className="py-20 bg-white">
